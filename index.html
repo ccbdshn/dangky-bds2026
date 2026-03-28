@@ -18,9 +18,9 @@
     --error: #E05C5C;
     --input-bg: #0D1B35;
   }
-
+ 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--dark);
@@ -30,7 +30,7 @@
       radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 50%),
       radial-gradient(ellipse at 80% 80%, rgba(15,52,96,0.4) 0%, transparent 50%);
   }
-
+ 
   header {
     text-align: center;
     padding: 48px 20px 32px;
@@ -44,7 +44,7 @@
     width: 80px; height: 2px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
-
+ 
   .header-badge {
     display: inline-block;
     font-size: 11px;
@@ -56,7 +56,7 @@
     border-radius: 20px;
     margin-bottom: 16px;
   }
-
+ 
   header h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(22px, 4vw, 36px);
@@ -65,19 +65,19 @@
     margin-bottom: 8px;
   }
   header h1 span { color: var(--gold); }
-
+ 
   header p {
     color: var(--text-muted);
     font-size: 14px;
     font-weight: 300;
   }
-
+ 
   .container {
     max-width: 760px;
     margin: 0 auto;
     padding: 40px 20px 80px;
   }
-
+ 
   /* STEPS */
   .steps {
     display: flex;
@@ -127,7 +127,7 @@
     max-width: 80px;
   }
   .step-line.done { background: var(--success); }
-
+ 
   /* CARDS */
   .card {
     background: var(--dark-card);
@@ -145,7 +145,7 @@
     height: 2px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
-
+ 
   .card-title {
     font-family: 'Playfair Display', serif;
     font-size: 18px;
@@ -158,7 +158,7 @@
     margin-bottom: 24px;
     font-weight: 300;
   }
-
+ 
   /* UPLOAD ZONE */
   .upload-zone {
     border: 2px dashed rgba(201,168,76,0.3);
@@ -194,7 +194,7 @@
     color: var(--text-muted);
     font-weight: 300;
   }
-
+ 
   .preview-wrap {
     margin-top: 16px;
     display: none;
@@ -219,7 +219,7 @@
     font-size: 14px;
     display: flex; align-items: center; justify-content: center;
   }
-
+ 
   /* OCR BUTTON */
   .btn-ocr {
     width: 100%;
@@ -239,7 +239,7 @@
   }
   .btn-ocr:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
   .btn-ocr:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
+ 
   /* STATUS */
   .status-box {
     margin-top: 12px;
@@ -253,7 +253,7 @@
   .status-box.loading { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: var(--gold); display: flex; }
   .status-box.success { background: rgba(76,175,140,0.1); border: 1px solid rgba(76,175,140,0.3); color: var(--success); display: flex; }
   .status-box.error { background: rgba(224,92,92,0.1); border: 1px solid rgba(224,92,92,0.3); color: var(--error); display: flex; }
-
+ 
   .spinner {
     width: 16px; height: 16px;
     border: 2px solid rgba(201,168,76,0.3);
@@ -263,7 +263,7 @@
     flex-shrink: 0;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
-
+ 
   /* FORM GRID */
   .form-grid {
     display: grid;
@@ -271,14 +271,14 @@
     gap: 16px;
   }
   @media(max-width:560px){ .form-grid { grid-template-columns: 1fr; } }
-
+ 
   .form-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
   }
   .form-group.full { grid-column: 1 / -1; }
-
+ 
   label {
     font-size: 12px;
     font-weight: 500;
@@ -299,7 +299,7 @@
     text-transform: none;
     font-weight: 400;
   }
-
+ 
   input, select {
     background: var(--input-bg);
     border: 1px solid var(--dark-border);
@@ -322,7 +322,7 @@
   }
   input::placeholder { color: rgba(136,136,170,0.5); }
   select option { background: var(--dark-card); }
-
+ 
   /* DIVIDER */
   .section-divider {
     display: flex;
@@ -343,7 +343,7 @@
     height: 1px;
     background: var(--dark-border);
   }
-
+ 
   /* SUBMIT */
   .btn-submit {
     width: 100%;
@@ -362,7 +362,7 @@
   }
   .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(45,138,94,0.3); }
   .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
+ 
   /* NOTE */
   .note-box {
     background: rgba(201,168,76,0.06);
@@ -375,7 +375,7 @@
     margin-bottom: 20px;
   }
   .note-box strong { color: var(--gold); }
-
+ 
   /* SUCCESS SCREEN */
   #successScreen {
     display: none;
@@ -395,7 +395,7 @@
     margin-bottom: 12px;
   }
   #successScreen p { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
-
+ 
   /* CONFIG notice */
   #configWarning {
     background: rgba(224,92,92,0.1);
@@ -407,7 +407,7 @@
     margin-bottom: 24px;
     display: none;
   }
-
+ 
   .api-config {
     background: var(--dark-card);
     border: 1px solid var(--dark-border);
@@ -424,15 +424,15 @@
 </style>
 </head>
 <body>
-
+ 
 <header>
   <div class="header-badge">Kỳ thi chứng chỉ</div>
   <h1>Đăng Ký Dự Thi<br><span>Chứng Chỉ Môi Giới Bất Động Sản</span></h1>
   <p>Vui lòng điền đầy đủ và chính xác thông tin đăng ký</p>
 </header>
-
+ 
 <div class="container">
-
+ 
   <!-- STEPS -->
   <div class="steps">
     <div class="step active" id="step1">
@@ -450,46 +450,63 @@
       <div class="step-label">Hoàn tất</div>
     </div>
   </div>
-
+ 
   <!-- CONFIG đã được nhúng sẵn, không hiện giao diện cấu hình -->
-
+ 
   <div id="mainForm">
     <!-- STEP 1: UPLOAD CCCD -->
     <div class="card">
       <div class="card-title">📷 Quét Căn Cước Công Dân</div>
       <div class="card-subtitle">Chụp ảnh hoặc tải lên ảnh CCCD mặt trước để tự động điền thông tin</div>
-
+ 
       <div class="note-box">
         <strong>Lưu ý:</strong> Ảnh phải rõ nét, đủ sáng, không bị che khuất. Chấp nhận ảnh chụp thẻ vật lý hoặc ảnh chụp màn hình CCCD điện tử trên <strong>VNeID</strong>.
       </div>
-
-      <div class="upload-zone" id="uploadZone">
-        <input type="file" id="cccdFile" accept="image/*" capture="environment" onchange="handleFile(this)">
-        <span class="upload-icon">🪪</span>
-        <h3>Nhấn để chọn ảnh CCCD</h3>
-        <p>Hoặc kéo thả ảnh vào đây · JPG, PNG, HEIC · Tối đa 10MB</p>
+ 
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <div style="font-size:12px;font-weight:500;color:var(--gold);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;">Mặt trước <span style="color:var(--error)">*</span></div>
+          <div class="upload-zone" id="uploadZoneFront" onclick="document.getElementById('cccdFront').click()">
+            <input type="file" id="cccdFront" accept="image/*" style="display:none" onchange="handleFile(this,'front')">
+            <span class="upload-icon" style="font-size:28px;">🪪</span>
+            <h3 style="font-size:13px;">Chọn ảnh mặt trước</h3>
+            <p style="font-size:11px;">Từ album hoặc chụp mới</p>
+          </div>
+          <div class="preview-wrap" id="previewWrapFront">
+            <img id="previewImgFront" src="" alt="Mặt trước">
+            <button class="preview-remove" onclick="removeFile('front')">✕</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;">Mặt sau <span style="color:var(--text-muted);font-weight:300">(tùy chọn)</span></div>
+          <div class="upload-zone" id="uploadZoneBack" onclick="document.getElementById('cccdBack').click()">
+            <input type="file" id="cccdBack" accept="image/*" style="display:none" onchange="handleFile(this,'back')">
+            <span class="upload-icon" style="font-size:28px;">🪪</span>
+            <h3 style="font-size:13px;">Chọn ảnh mặt sau</h3>
+            <p style="font-size:11px;">Từ album hoặc chụp mới</p>
+          </div>
+          <div class="preview-wrap" id="previewWrapBack">
+            <img id="previewImgBack" src="" alt="Mặt sau">
+            <button class="preview-remove" onclick="removeFile('back')">✕</button>
+          </div>
+        </div>
       </div>
-
-      <div class="preview-wrap" id="previewWrap">
-        <img id="previewImg" src="" alt="Preview CCCD">
-        <button class="preview-remove" onclick="removeFile()">✕</button>
-      </div>
-
+ 
       <div class="status-box" id="statusBox">
         <div class="spinner"></div>
         <span id="statusText">Đang phân tích ảnh...</span>
       </div>
-
+ 
       <button class="btn-ocr" id="btnOcr" onclick="runOCR()" disabled>
         ✨ Tự động điền thông tin từ CCCD
       </button>
     </div>
-
+ 
     <!-- STEP 2: FORM -->
     <div class="card">
       <div class="card-title">📋 Thông Tin Đăng Ký</div>
       <div class="card-subtitle">Kiểm tra lại thông tin được điền tự động và bổ sung các trường còn lại</div>
-
+ 
       <div class="section-divider"><span>Thông tin cá nhân</span></div>
       <div class="form-grid">
         <div class="form-group full">
@@ -557,7 +574,7 @@
           <input type="text" id="diaChi" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố">
         </div>
       </div>
-
+ 
       <div class="section-divider" style="margin-top:24px;"><span>Giấy tờ tùy thân</span></div>
       <div class="form-grid">
         <div class="form-group full">
@@ -581,7 +598,7 @@
           <input type="text" id="noiCapKhac" placeholder="Nhập nơi cấp..." style="display:none;margin-top:8px;">
         </div>
       </div>
-
+ 
       <div class="section-divider" style="margin-top:24px;"><span>Thông tin liên hệ & đào tạo</span></div>
       <div class="form-grid">
         <div class="form-group">
@@ -636,13 +653,13 @@
           <input type="text" id="soChungChi" placeholder="Để trống nếu không có">
         </div>
       </div>
-
+ 
       <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
         ✅ Xác Nhận &amp; Nộp Hồ Sơ Đăng Ký
       </button>
     </div>
   </div>
-
+ 
   <!-- SUCCESS -->
   <div id="successScreen">
     <span class="success-icon">🎉</span>
@@ -651,89 +668,95 @@
     Chúng tôi sẽ liên hệ qua email và số điện thoại bạn đã cung cấp.<br><br>
     <strong style="color:var(--gold)">Chúc bạn thi tốt!</strong></p>
   </div>
-
+ 
 </div>
-
+ 
 <script>
 // ============================================================
 // CẤU HÌNH — Admin điền API key và Script URL vào đây
 // hoặc dùng ô nhập liệu bên trên
 // ============================================================
 const CONFIG = {
-  GEMINI_API_KEY: 'AIzaSyACZ21QWC8c8dIlLW3Ucq_CFy_xvp1scis',
+  GEMINI_API_KEY: 'AIzaSyCxFwOCNEcgIK26tp4jsT9gi-thPPqBsms',
   SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzcPDraXTk4_Z4XSuxL7IX23DmjtAlN4FrqJ8FkA7GIUc5owZhT8yDgXVixM0rKQnFFSg/exec'
 };
 // ============================================================
-
+ 
 let imageBase64 = '';
 let imageMime = '';
-
+ 
 function loadConfig() {
   // API key và Script URL đã được nhúng sẵn trong CONFIG
   checkConfig();
 }
-
+ 
 function checkConfig() {
   // Không cần hiện cảnh báo vì đã cấu hình sẵn
 }
-
-// Drag & drop
-const zone = document.getElementById('uploadZone');
-zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag'); });
-zone.addEventListener('dragleave', () => zone.classList.remove('drag'));
-zone.addEventListener('drop', e => {
-  e.preventDefault(); zone.classList.remove('drag');
-  const file = e.dataTransfer.files[0];
-  if (file) processFile(file);
-});
-
-function handleFile(input) {
-  if (input.files[0]) processFile(input.files[0]);
+ 
+let imageBase64Front = '', imageMimeFront = '';
+let imageBase64Back = '', imageMimeBack = '';
+ 
+function handleFile(input, side) {
+  if (input.files[0]) processFile(input.files[0], side);
 }
-
-function processFile(file) {
+ 
+function processFile(file, side) {
   if (file.size > 10 * 1024 * 1024) { alert('❌ File quá lớn. Vui lòng chọn ảnh dưới 10MB.'); return; }
-  imageMime = file.type || 'image/jpeg';
+  const mime = file.type || 'image/jpeg';
   const reader = new FileReader();
   reader.onload = e => {
-    imageBase64 = e.target.result.split(',')[1];
-    document.getElementById('previewImg').src = e.target.result;
-    document.getElementById('previewWrap').style.display = 'block';
-    document.getElementById('btnOcr').disabled = false;
+    const b64 = e.target.result.split(',')[1];
+    if (side === 'front') {
+      imageBase64Front = b64; imageMimeFront = mime;
+      document.getElementById('previewImgFront').src = e.target.result;
+      document.getElementById('previewWrapFront').style.display = 'block';
+    } else {
+      imageBase64Back = b64; imageMimeBack = mime;
+      document.getElementById('previewImgBack').src = e.target.result;
+      document.getElementById('previewWrapBack').style.display = 'block';
+    }
+    document.getElementById('btnOcr').disabled = !imageBase64Front;
     showStatus('', '');
   };
   reader.readAsDataURL(file);
 }
-
-function removeFile() {
-  imageBase64 = '';
-  document.getElementById('previewWrap').style.display = 'none';
-  document.getElementById('cccdFile').value = '';
-  document.getElementById('btnOcr').disabled = true;
+ 
+function removeFile(side) {
+  if (side === 'front') {
+    imageBase64Front = ''; imageMimeFront = '';
+    document.getElementById('previewWrapFront').style.display = 'none';
+    document.getElementById('cccdFront').value = '';
+  } else {
+    imageBase64Back = ''; imageMimeBack = '';
+    document.getElementById('previewWrapBack').style.display = 'none';
+    document.getElementById('cccdBack').value = '';
+  }
+  document.getElementById('btnOcr').disabled = !imageBase64Front;
   showStatus('', '');
 }
-
+ 
 function showStatus(type, msg) {
   const box = document.getElementById('statusBox');
   box.className = 'status-box ' + type;
   document.getElementById('statusText').textContent = msg;
   if (type) box.style.display = 'flex'; else box.style.display = 'none';
 }
-
+ 
 async function runOCR() {
-  if (!imageBase64) return;
-  if (!CONFIG.GEMINI_API_KEY) { alert('⚠️ Chưa có API Key. Vui lòng cấu hình ở trên.'); return; }
-
+  if (!imageBase64Front) return;
+  if (!CONFIG.GEMINI_API_KEY) { alert('⚠️ Chưa có API Key.'); return; }
+ 
   document.getElementById('btnOcr').disabled = true;
   showStatus('loading', 'Đang phân tích ảnh CCCD, vui lòng chờ...');
-
+ 
   const prompt = `Đây là ảnh Căn cước công dân (CCCD) hoặc CCCD điện tử của người Việt Nam.
 Hãy trích xuất các thông tin sau và trả về ĐÚNG định dạng JSON (không có markdown, không giải thích):
 {
   "hoTen": "Họ và tên đầy đủ bằng chữ HOA",
   "ngaySinh": "DD/MM/YYYY",
   "gioiTinh": "Nam hoặc Nữ",
-  "noiSinh": "Nơi sinh ghi trên CCCD",
+  "noiSinh": "Nơi sinh ghi trên CCCD (chỉ tên tỉnh/thành phố)",
   "quocTich": "Quốc tịch (thường là Việt Nam)",
   "diaChi": "Địa chỉ thường trú đầy đủ",
   "soCCCD": "Số CCCD 12 chữ số",
@@ -741,7 +764,11 @@ Hãy trích xuất các thông tin sau và trả về ĐÚNG định dạng JSON
   "noiCap": "Nơi cấp CCCD"
 }
 Nếu không đọc được trường nào, để giá trị là chuỗi rỗng "".`;
-
+ 
+  // Tạo parts: luôn có mặt trước, thêm mặt sau nếu có
+  const parts = [{ text: prompt }, { inline_data: { mime_type: imageMimeFront, data: imageBase64Front } }];
+  if (imageBase64Back) parts.push({ inline_data: { mime_type: imageMimeBack, data: imageBase64Back } });
+ 
   try {
     const res = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${CONFIG.GEMINI_API_KEY}`,
@@ -749,22 +776,17 @@ Nếu không đọc được trường nào, để giá trị là chuỗi rỗng
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{
-            parts: [
-              { text: prompt },
-              { inline_data: { mime_type: imageMime, data: imageBase64 } }
-            ]
-          }],
+          contents: [{ parts }],
           generationConfig: { temperature: 0, maxOutputTokens: 512 }
         })
       }
     );
-
+ 
     if (!res.ok) {
       const err = await res.json();
       throw new Error(err.error?.message || 'Lỗi API');
     }
-
+ 
     const data = await res.json();
     let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
     text = text.replace(/```json|```/g, '').trim();
@@ -776,35 +798,35 @@ Nếu không đọc được trường nào, để giá trị là chuỗi rỗng
     document.getElementById('btnOcr').disabled = false;
   }
 }
-
+ 
 // Xử lý dropdown Nơi cấp
 function toggleNoiCapKhac(sel) {
   const khac = document.getElementById('noiCapKhac');
   khac.style.display = sel.value === 'Khác' ? 'block' : 'none';
   if (sel.value !== 'Khác') khac.value = '';
 }
-
+ 
 // Xử lý dropdown Cơ sở đào tạo
 function toggleCoSoKhac(sel) {
   const khac = document.getElementById('coSoDaoTaoKhac');
   khac.style.display = sel.value === 'Khác' ? 'block' : 'none';
   if (sel.value !== 'Khác') khac.value = '';
 }
-
+ 
 // Lấy giá trị nơi cấp (dropdown hoặc tự nhập)
 function getNoiCap() {
   const sel = document.getElementById('noiCapSelect').value;
   if (sel === 'Khác') return document.getElementById('noiCapKhac').value.trim();
   return sel;
 }
-
+ 
 // Lấy giá trị cơ sở đào tạo (dropdown hoặc tự nhập)
 function getCoSoDaoTao() {
   const sel = document.getElementById('coSoDaoTaoSelect').value;
   if (sel === 'Khác') return document.getElementById('coSoDaoTaoKhac').value.trim();
   return sel;
 }
-
+ 
 function fillForm(info) {
   // Các trường input thường
   const inputMap = {
@@ -818,10 +840,10 @@ function fillForm(info) {
     el.value = info[key];
     el.classList.add('filled');
   }
-
+ 
   // Giới tính (select)
   if (info.gioiTinh) document.getElementById('gioiTinh').value = info.gioiTinh;
-
+ 
   // Nơi sinh — tìm trong danh sách dropdown, nếu không có thì bỏ qua
   if (info.noiSinh) {
     const selNoiSinh = document.getElementById('noiSinh');
@@ -832,7 +854,7 @@ function fillForm(info) {
     );
     if (match) selNoiSinh.value = match.value;
   }
-
+ 
   // Nơi cấp — map vào dropdown
   if (info.noiCap) {
     const noiCapVal = info.noiCap;
@@ -851,15 +873,15 @@ function fillForm(info) {
       document.getElementById('noiCapKhac').style.display = 'block';
     }
   }
-
+ 
   document.getElementById('btnOcr').disabled = false;
 }
-
+ 
 async function submitForm() {
   // Lấy giá trị thực của các dropdown đặc biệt
   const noiCap = getNoiCap();
   const coSoDaoTao = getCoSoDaoTao();
-
+ 
   // Validation các trường bắt buộc
   const requiredFields = [
     { id: 'hoTen', label: 'Họ và tên' },
@@ -870,7 +892,7 @@ async function submitForm() {
     { id: 'diaChi', label: 'Địa chỉ thường trú' },
     { id: 'soDienThoai', label: 'Số điện thoại' },
   ];
-
+ 
   for (const f of requiredFields) {
     const el = document.getElementById(f.id);
     if (!el.value.trim()) {
@@ -880,7 +902,7 @@ async function submitForm() {
       return;
     }
   }
-
+ 
   // Kiểm tra Nơi sinh
   if (!document.getElementById('noiSinh').value) {
     alert('⚠️ Vui lòng chọn Nơi sinh'); return;
@@ -893,11 +915,11 @@ async function submitForm() {
   if (!coSoDaoTao) {
     alert('⚠️ Vui lòng chọn hoặc nhập Cơ sở đào tạo'); return;
   }
-
+ 
   const btn = document.getElementById('btnSubmit');
   btn.disabled = true;
   btn.textContent = '⏳ Đang gửi hồ sơ...';
-
+ 
   const payload = {
     hoTen: document.getElementById('hoTen').value.trim(),
     ngaySinh: document.getElementById('ngaySinh').value.trim(),
@@ -915,7 +937,7 @@ async function submitForm() {
     soChungChi: document.getElementById('soChungChi').value.trim(),
     thoiGianNop: new Date().toLocaleString('vi-VN')
   };
-
+ 
   try {
     await fetch(CONFIG.SCRIPT_URL, {
       method: 'POST',
@@ -933,7 +955,7 @@ async function submitForm() {
     alert('❌ Có lỗi xảy ra khi gửi. Vui lòng thử lại.\n' + e.message);
   }
 }
-
+ 
 loadConfig();
 </script>
 </body>
