@@ -677,7 +677,7 @@
 // hoặc dùng ô nhập liệu bên trên
 // ============================================================
 const CONFIG = {
-  GEMINI_API_KEY: 'AIzaSyCxFwOCNEcgIK26tp4jsT9gi-thPPqBsms',
+  GEMINI_API_KEY: '', // API key được giữ bí mật trên Cloudflare Worker
   SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzcPDraXTk4_Z4XSuxL7IX23DmjtAlN4FrqJ8FkA7GIUc5owZhT8yDgXVixM0rKQnFFSg/exec'
 };
 // ============================================================
@@ -769,61 +769,36 @@ Nếu không đọc được trường nào, để giá trị là chuỗi rỗng
   const parts = [{ text: prompt }, { inline_data: { mime_type: imageMimeFront, data: imageBase64Front } }];
   if (imageBase64Back) parts.push({ inline_data: { mime_type: imageMimeBack, data: imageBase64Back } });
 
-  // Danh sách model thử lần lượt
-  const models = [
-    'gemini-2.0-flash',
-    'gemini-1.5-flash',
-    'gemini-1.5-flash-latest',
-    'gemini-pro-vision',
-  ];
+  // Gọi qua Cloudflare Worker (API key ẩn hoàn toàn)
+  try {
+    const res = await fetch('https://gemini-proxy.landh0510.workers.dev/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contents: [{ parts }] })
+    });
 
-  let lastError = '';
-  for (const model of models) {
-    try {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${CONFIG.GEMINI_API_KEY}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts }],
-            generationConfig: { temperature: 0, maxOutputTokens: 512 }
-          })
-        }
-      );
+    const data = await res.json();
 
-      if (!res.ok) {
-        const err = await res.json();
-        lastError = err.error?.message || 'Lỗi API';
-        // Nếu lỗi quota (không phải lỗi model not found) thì dừng luôn
-        if (!lastError.includes('not found') && !lastError.includes('not supported')) {
-          throw new Error(lastError);
-        }
-        continue; // thử model tiếp theo
-      }
-
-      const data = await res.json();
-      let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-      text = text.replace(/```json|```/g, '').trim();
-      const info = JSON.parse(text);
-      fillForm(info);
-      showStatus('success', `✅ Đã điền thông tin thành công! Vui lòng kiểm tra lại.`);
-      document.getElementById('btnOcr').disabled = false;
-      return; // thành công, thoát luôn
-
-    } catch (e) {
-      if (!e.message.includes('not found') && !e.message.includes('not supported')) {
-        showStatus('error', '❌ Lỗi: ' + e.message + '. Hãy thử lại hoặc điền tay.');
-        document.getElementById('btnOcr').disabled = false;
-        return;
-      }
-      lastError = e.message;
+    if (!res.ok || data.error) {
+      throw new Error(data.error || 'Lỗi từ server');
     }
-  }
 
-  // Tất cả model đều thất bại
-  showStatus('error', '❌ ' + lastError + '. Hãy thử lại hoặc điền tay.');
-  document.getElementById('btnOcr').disabled = false;
+    let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    text = text.replace(/```json|```/g, '').trim();
+    const info = JSON.parse(text);
+    fillForm(info);
+    showStatus('success', '✅ Đã điền thông tin thành công! Vui lòng kiểm tra lại.');
+    document.getElementById('btnOcr').disabled = false;
+    return;
+
+  } catch (e) {
+    {
+      showStatus('error', '❌ Lỗi: ' + e.message + '. Hãy thử lại hoặc điền tay.');
+      document.getElementById('btnOcr').disabled = false;
+      return;
+    }
+    const lastError = e.message;
+    }
 }
 
 // Xử lý dropdown Nơi cấp
