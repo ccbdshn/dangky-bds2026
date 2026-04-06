@@ -745,7 +745,6 @@ function showStatus(type, msg) {
 
 async function runOCR() {
   if (!imageBase64Front) return;
-  if (!CONFIG.GEMINI_API_KEY) { alert('⚠️ Chưa có API Key.'); return; }
 
   document.getElementById('btnOcr').disabled = true;
   showStatus('loading', 'Đang phân tích ảnh CCCD, vui lòng chờ...');
