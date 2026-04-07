@@ -774,17 +774,23 @@ Nếu không đọc được trường nào, để giá trị là chuỗi rỗng
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ contents: [{ parts }] })
-    });
+    }).catch(() => { throw new Error('E105'); });
 
     const data = await res.json();
 
     if (!res.ok || data.error) {
-      throw new Error(data.error || 'Lỗi từ server');
+      const code = data.errorCode || 199;
+      throw new Error('E' + code);
     }
 
     let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
     text = text.replace(/```json|```/g, '').trim();
-    const info = JSON.parse(text);
+    let info;
+    try {
+      info = JSON.parse(text);
+    } catch {
+      throw new Error('E104');
+    }
     fillForm(info);
     showStatus('success', '✅ Đã điền thông tin thành công! Vui lòng kiểm tra lại.');
     document.getElementById('btnOcr').disabled = false;
@@ -792,7 +798,15 @@ Nếu không đọc được trường nào, để giá trị là chuỗi rỗng
 
   } catch (e) {
     {
-      showStatus('error', '❌ Lỗi: ' + e.message + '. Hãy thử lại hoặc điền tay.');
+      const msg = e.message || '';
+      let thongBao = '';
+      if (msg === 'E101') thongBao = 'Hãy thử lại hoặc điền thông tin bằng tay (Mã lỗi: 101)';
+      else if (msg === 'E102') thongBao = 'Hệ thống đang bận, vui lòng thử lại sau ít giây (Mã lỗi: 102)';
+      else if (msg === 'E103') thongBao = 'Hãy thử lại hoặc điền thông tin bằng tay (Mã lỗi: 103)';
+      else if (msg === 'E104') thongBao = 'Không đọc được thông tin từ ảnh, vui lòng chụp lại rõ hơn (Mã lỗi: 104)';
+      else if (msg === 'E105') thongBao = 'Lỗi kết nối mạng, vui lòng kiểm tra internet (Mã lỗi: 105)';
+      else thongBao = 'Hãy thử lại hoặc điền thông tin bằng tay (Mã lỗi: 199)';
+      showStatus('error', '❌ ' + thongBao);
       document.getElementById('btnOcr').disabled = false;
       return;
     }
