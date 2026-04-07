@@ -369,17 +369,23 @@ LƯU Ý QUAN TRỌNG: Nếu có bất kỳ trường nào mờ, không đọc đ
   if (imageBase64Back) parts.push({ inline_data: { mime_type: imageMimeBack, data: imageBase64Back } });
 
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${MY_GEMINI_KEY}`, {
+    // Đã đổi sang gemini-1.5-flash cực kỳ ổn định
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${MY_GEMINI_KEY}`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ contents: [{ parts }], generationConfig: { temperature: 0 } })
     });
     const data = await res.json();
-    if (!res.ok) throw new Error();
+    
+    // Nếu Google API từ chối, văng lỗi ngay lập tức
+    if (!res.ok) {
+        console.error("Lỗi từ Google API:", data);
+        throw new Error(data.error?.message || "Lỗi kết nối từ API Google");
+    }
 
     let text = data.candidates[0].content.parts[0].text.replace(/```json|```/g, '').trim();
     let info = JSON.parse(text);
     
-    // YÊU CẦU 1: Gỡ lỗi "N/A" thủ công phòng hờ AI ngốc
+    // Gỡ lỗi "N/A" thủ công
     for (let key in info) {
         if (info[key] === 'N/A' || info[key] === 'NA' || info[key] === 'null' || info[key] === null) {
             info[key] = '';
@@ -390,7 +396,13 @@ LƯU Ý QUAN TRỌNG: Nếu có bất kỳ trường nào mờ, không đọc đ
     showStatus('success', '✅ Quét thành công! Chuyển trang...');
     setTimeout(skipToStep2, 1000);
   } catch (e) {
-    showStatus('error', '❌ Ảnh quá mờ hoặc có lỗi. Vui lòng tự nhập tay.');
+    console.error("Lỗi hệ thống chi tiết:", e);
+    // HIỂN THỊ CHÍNH XÁC LỖI RA MÀN HÌNH ĐỂ BIẾT BỆNH THẬT SỰ
+    let thongBao = e.message;
+    if (thongBao.includes('Unexpected token') || thongBao.includes('JSON')) {
+       thongBao = 'Ảnh bị chói sáng hoặc không nhận diện được chữ. Vui lòng chụp lại.';
+    }
+    showStatus('error', '❌ Lỗi: ' + thongBao);
     document.getElementById('btnOcr').disabled = false;
   }
 }
