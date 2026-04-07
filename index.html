@@ -6,13 +6,13 @@
 <title>Đăng Ký Dự Thi Chứng Chỉ Bất Động Sản</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* GIAO DIỆN LIGHT MODE (TÔNG SÁNG) */
+  /* GIAO DIỆN LIGHT MODE (TÔNG SÁNG) CHUYÊN NGHIỆP */
   :root {
-    --primary: #1e40af; /* Xanh dương đậm hành chính */
+    --primary: #1e40af; 
     --primary-light: #eff6ff;
-    --gold: #b45309; /* Cam đất thay thế vàng */
-    --bg-main: #f8fafc; /* Nền xám rất nhạt */
-    --bg-card: #ffffff; /* Thẻ màu trắng */
+    --gold: #b45309; 
+    --bg-main: #f8fafc; 
+    --bg-card: #ffffff; 
     --border: #e2e8f0;
     --text-main: #1e293b;
     --text-muted: #64748b;
@@ -58,28 +58,53 @@
     line-height: 1.3;
     margin-bottom: 8px;
   }
+  
   header h1 span { color: var(--gold); }
-  header p { color: var(--text-muted); font-size: 14px; }
+  
+  header p { 
+    color: var(--text-muted); 
+    font-size: 14px; 
+  }
 
-  .container { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+  .container { 
+    max-width: 760px; 
+    margin: 0 auto; 
+    padding: 32px 20px 80px; 
+  }
 
-  /* STEPS */
-  .steps { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 32px; }
-  .step { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  /* THANH TIẾN TRÌNH 4 BƯỚC */
+  .steps { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 0; 
+    margin-bottom: 32px; 
+  }
+  
+  .step { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 6px; 
+  }
+  
   .step-circle {
     width: 32px; height: 32px; border-radius: 50%;
     border: 2px solid var(--border); background: var(--bg-card);
     display: flex; align-items: center; justify-content: center;
     font-size: 13px; font-weight: 600; color: var(--text-muted); transition: all .3s;
   }
+  
   .step.active .step-circle { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
   .step.done .step-circle { border-color: var(--success); background: var(--success); color: #fff; }
+  
   .step-label { font-size: 11px; color: var(--text-muted); font-weight: 500; white-space: nowrap; }
   .step.active .step-label { color: var(--primary); }
+  
   .step-line { flex: 1; height: 2px; background: var(--border); margin: 0 8px 22px; max-width: 60px; }
   .step-line.done { background: var(--success); }
 
-  /* CARDS */
+  /* KHỐI NỘI DUNG (CARDS) */
   .card {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -91,13 +116,14 @@
   .card-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--primary); margin-bottom: 6px; }
   .card-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
 
-  /* UPLOAD ZONE */
+  /* KHU VỰC TẢI ẢNH */
   .upload-zone {
     border: 2px dashed #cbd5e1; border-radius: 12px; padding: 32px 20px;
     text-align: center; cursor: pointer; transition: all .2s; background: #f8fafc; position: relative;
   }
   .upload-zone:hover { border-color: var(--primary); background: var(--primary-light); }
   .upload-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  
   .upload-icon { font-size: 36px; margin-bottom: 8px; display: block; }
   .upload-zone h3 { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
   .upload-zone p { font-size: 12px; color: var(--text-muted); }
@@ -109,6 +135,7 @@
     border-radius: 50%; width: 28px; height: 28px; cursor: pointer; display:flex; align-items:center; justify-content:center;
   }
 
+  /* KHU VỰC TẢI HỒ SƠ PDF */
   .file-input-wrapper {
     position: relative; background: #fff; border: 1px solid var(--border);
     border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 12px;
@@ -117,7 +144,7 @@
   .file-name { font-size: 13px; color: var(--text-main); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .file-btn { background: var(--primary-light); color: var(--primary); padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; pointer-events: none; border: 1px solid #bfdbfe; }
 
-  /* FORMS & BUTTONS */
+  /* NÚT BẤM VÀ THÔNG BÁO */
   .btn-ocr {
     width: 100%; margin-top: 16px; padding: 14px;
     background: var(--gold); color: #fff; border: none; border-radius: 8px;
@@ -139,6 +166,7 @@
   .status-box.success { background: #dcfce7; border: 1px solid #bbf7d0; color: #166534; display: flex; }
   .status-box.error { background: #fee2e2; border: 1px solid #fecaca; color: #991b1b; display: flex; }
 
+  /* BỐ CỤC FORM */
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media(max-width:560px){ .form-grid { grid-template-columns: 1fr; } }
   .form-group { display: flex; flex-direction: column; gap: 6px; }
@@ -157,6 +185,7 @@
 
   .note-box { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 16px; font-size: 13px; color: #9a3412; line-height: 1.6; margin-bottom: 20px; }
 
+  /* GIAO DIỆN RÀ SOÁT & THÀNH CÔNG */
   .review-list { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
   .review-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed var(--border); }
   .review-item:last-child { border-bottom: none; }
@@ -234,21 +263,85 @@
 
       <div class="section-divider"><span>Thông tin cá nhân</span></div>
       <div class="form-grid">
-        <div class="form-group full"><label>Họ và tên <span class="required">*</span></label><input type="text" id="hoTen" placeholder="Nguyễn Văn A"></div>
-        <div class="form-group"><label>Ngày sinh <span class="required">*</span></label><input type="text" id="ngaySinh" placeholder="DD/MM/YYYY"></div>
-        <div class="form-group"><label>Giới tính <span class="required">*</span></label>
-          <select id="gioiTinh"><option value="">-- Chọn --</option><option value="Nam">Nam</option><option value="Nữ">Nữ</option></select>
+        <div class="form-group full">
+          <label>Họ và tên <span class="required">*</span></label>
+          <input type="text" id="hoTen" placeholder="Nguyễn Văn A">
         </div>
-        <div class="form-group"><label>Nơi sinh <span class="required">*</span><span class="note-label">(Theo địa giới hành chính mới)</span></label><input type="text" id="noiSinh" placeholder="VD: Hà Nội"></div>
-        <div class="form-group"><label>Quốc tịch <span class="required">*</span></label><input type="text" id="quocTich" placeholder="Việt Nam"></div>
-        <div class="form-group full"><label>Thường trú <span class="required">*</span><span class="note-label">(Theo địa giới hành chính mới trên VNEID)</span></label><input type="text" id="diaChi" placeholder="Số nhà, phường/xã, quận/huyện..."></div>
+        <div class="form-group">
+          <label>Ngày sinh <span class="required">*</span></label>
+          <input type="text" id="ngaySinh" placeholder="DD/MM/YYYY">
+        </div>
+        <div class="form-group">
+          <label>Giới tính <span class="required">*</span></label>
+          <select id="gioiTinh">
+            <option value="">-- Chọn --</option>
+            <option value="Nam">Nam</option>
+            <option value="Nữ">Nữ</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Nơi sinh <span class="required">*</span><span class="note-label">(Theo địa giới hành chính mới)</span></label>
+          <select id="noiSinh">
+            <option value="">-- Chọn tỉnh/thành phố --</option>
+            <option>Tuyên Quang</option>
+            <option>Cao Bằng</option>
+            <option>Lai Châu</option>
+            <option>Lào Cai</option>
+            <option>Thái Nguyên</option>
+            <option>Điện Biên</option>
+            <option>Lạng Sơn</option>
+            <option>Sơn La</option>
+            <option>Phú Thọ</option>
+            <option>Bắc Ninh</option>
+            <option>Quảng Ninh</option>
+            <option>TP Hà Nội</option>
+            <option>TP Hải Phòng</option>
+            <option>Hưng Yên</option>
+            <option>Ninh Bình</option>
+            <option>Thanh Hoá</option>
+            <option>Nghệ An</option>
+            <option>Hà Tĩnh</option>
+            <option>Quảng Trị</option>
+            <option>TP Huế</option>
+            <option>TP Đà Nẵng</option>
+            <option>Quảng Ngãi</option>
+            <option>Gia Lai</option>
+            <option>Đắk Lắk</option>
+            <option>Khánh Hoà</option>
+            <option>Lâm Đồng</option>
+            <option>Đồng Nai</option>
+            <option>Tây Ninh</option>
+            <option>TP HCM</option>
+            <option>Đồng Tháp</option>
+            <option>An Giang</option>
+            <option>Vĩnh Long</option>
+            <option>TP Cần Thơ</option>
+            <option>Cà Mau</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Quốc tịch <span class="required">*</span></label>
+          <input type="text" id="quocTich" placeholder="Việt Nam">
+        </div>
+        <div class="form-group full">
+          <label>Thường trú <span class="required">*</span><span class="note-label">(Theo địa giới hành chính mới trên VNEID)</span></label>
+          <input type="text" id="diaChi" placeholder="Số nhà, phường/xã, quận/huyện...">
+        </div>
       </div>
 
       <div class="section-divider" style="margin-top:24px;"><span>Giấy tờ tùy thân & Liên hệ</span></div>
       <div class="form-grid">
-        <div class="form-group full"><label>Số CCCD / Hộ chiếu <span class="required">*</span></label><input type="text" id="soCCCD" placeholder="0123456789xx"></div>
-        <div class="form-group"><label>Ngày cấp <span class="required">*</span></label><input type="text" id="ngayCap" placeholder="DD/MM/YYYY"></div>
-        <div class="form-group"><label>Nơi cấp <span class="required">*</span></label>
+        <div class="form-group full">
+          <label>Số CCCD / Hộ chiếu <span class="required">*</span></label>
+          <input type="text" id="soCCCD" placeholder="0123456789xx">
+        </div>
+        <div class="form-group">
+          <label>Ngày cấp <span class="required">*</span></label>
+          <input type="text" id="ngayCap" placeholder="DD/MM/YYYY">
+        </div>
+        <div class="form-group">
+          <label>Nơi cấp <span class="required">*</span></label>
           <select id="noiCapSelect" onchange="toggleNoiCapKhac(this)">
             <option value="">-- Chọn nơi cấp --</option>
             <option value="Bộ Công An">Bộ Công An</option>
@@ -259,18 +352,44 @@
           </select>
           <input type="text" id="noiCapKhac" placeholder="Nhập nơi cấp..." style="display:none;margin-top:8px;">
         </div>
-        <div class="form-group"><label>Số điện thoại <span class="required">*</span></label><input type="tel" id="soDienThoai" placeholder="09xxxxxxxx"></div>
-        <div class="form-group"><label>Email</label><input type="email" id="email" placeholder="example@gmail.com"></div>
-        <div class="form-group full"><label>Cơ sở đào tạo <span class="required">*</span></label>
+        <div class="form-group">
+          <label>Số điện thoại <span class="required">*</span></label>
+          <input type="tel" id="soDienThoai" placeholder="09xxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="example@gmail.com">
+        </div>
+        <div class="form-group full">
+          <label>Cơ sở đào tạo <span class="required">*</span></label>
           <select id="coSoDaoTaoSelect" onchange="toggleCoSoKhac(this)">
             <option value="">-- Chọn cơ sở đào tạo --</option>
             <option>Trung tâm Nghiên cứu nhà ở và thị trường bất động sản</option>
+            <option>Công ty Cổ phần Bất động sản Thiên Khôi</option>
+            <option>Viện Đào Tạo Bất Động Sản</option>
+            <option>Công ty Cổ phần Khoa học Xây dựng</option>
+            <option>Viện Đào Tạo Và Hợp Tác Giáo Dục</option>
+            <option>Viện Đào Tạo Bất Động Sản Liên Việt</option>
+            <option>Công ty TNHH dịch vụ và đầu tư bất động sản Hợp Phát</option>
+            <option>Trường Cao đẳng Công nghệ cao Hà Nội</option>
+            <option>Viện nghiên cứu đánh giá thị trường bất động sản Việt Nam</option>
+            <option>Công ty cổ phần CITI Việt Nam</option>
+            <option>Viên Quản lý Đào tạo ESC Việt Nam</option>
+            <option>Viện đào tạo nhân lực xây dựng Việt Nam</option>
+            <option>Công ty Cổ phần Đào tạo Bất động sản Đất Vàng</option>
+            <option>Trường Đại học Kinh tế Quốc dân</option>
             <option value="Khác">Khác (tự nhập)</option>
           </select>
           <input type="text" id="coSoDaoTaoKhac" placeholder="Nhập tên cơ sở đào tạo..." style="display:none;margin-top:8px;">
         </div>
-        <div class="form-group"><label>Số TK ngân hàng</label><input type="text" id="soTaiKhoan" placeholder="Số tài khoản"></div>
-        <div class="form-group"><label>Chứng chỉ cũ (nếu có)</label><input type="text" id="soChungChi"></div>
+        <div class="form-group">
+          <label>Số TK ngân hàng</label>
+          <input type="text" id="soTaiKhoan" placeholder="Số tài khoản">
+        </div>
+        <div class="form-group">
+          <label>Chứng chỉ cũ (nếu có)</label>
+          <input type="text" id="soChungChi" placeholder="Để trống nếu không có">
+        </div>
       </div>
 
       <div class="section-divider" style="margin-top:24px;"><span>Tải lên hồ sơ (File PDF)</span></div>
@@ -323,56 +442,69 @@
 </div>
 
 <script>
-// ==========================================
-// BƯỚC 1: ĐIỀN API KEY GEMINI Ở ĐÂY
+// =========================================================================
+// THÔNG TIN CẤU HÌNH CỦA BẠN ĐÃ ĐƯỢC ĐIỀN ĐẦY ĐỦ Ở ĐÂY
 const MY_GEMINI_KEY = 'AIzaSyClnfQ5Smik0NSAYT97qzh6pcHRka_8Frk';
-
-// BƯỚC 2: ĐIỀN URL GOOGLE APPS SCRIPT Ở ĐÂY (Cái vừa tạo)
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxvr7t9s3AyyzWkNDvWQp9J7T7fCr2-FUA_i1PtN4Lni5y59xdQKAIEJEwrxRkI2PWL-A/exec';
-// ==========================================
+// =========================================================================
 
 let imageBase64Front = '', imageMimeFront = '', imageBase64Back = '', imageMimeBack = '';
 
 function handleFile(input, side) {
   if (input.files[0]) processFile(input.files[0], side);
 }
+
 function processFile(file, side) {
   const reader = new FileReader();
   reader.onload = e => {
     const b64 = e.target.result.split(',')[1];
-    if (side === 'front') { imageBase64Front = b64; imageMimeFront = file.type; document.getElementById('previewImgFront').src = e.target.result; document.getElementById('previewWrapFront').style.display = 'block'; }
-    else { imageBase64Back = b64; imageMimeBack = file.type; document.getElementById('previewImgBack').src = e.target.result; document.getElementById('previewWrapBack').style.display = 'block'; }
+    if (side === 'front') { 
+      imageBase64Front = b64; imageMimeFront = file.type; 
+      document.getElementById('previewImgFront').src = e.target.result; 
+      document.getElementById('previewWrapFront').style.display = 'block'; 
+    } else { 
+      imageBase64Back = b64; imageMimeBack = file.type; 
+      document.getElementById('previewImgBack').src = e.target.result; 
+      document.getElementById('previewWrapBack').style.display = 'block'; 
+    }
     document.getElementById('btnOcr').disabled = !imageBase64Front;
   };
   reader.readAsDataURL(file);
 }
+
 function removeFile(side) {
-  if (side === 'front') { imageBase64Front = ''; document.getElementById('previewWrapFront').style.display = 'none'; document.getElementById('cccdFront').value = ''; }
-  else { imageBase64Back = ''; document.getElementById('previewWrapBack').style.display = 'none'; document.getElementById('cccdBack').value = ''; }
+  if (side === 'front') { 
+    imageBase64Front = ''; document.getElementById('previewWrapFront').style.display = 'none'; document.getElementById('cccdFront').value = ''; 
+  } else { 
+    imageBase64Back = ''; document.getElementById('previewWrapBack').style.display = 'none'; document.getElementById('cccdBack').value = ''; 
+  }
   document.getElementById('btnOcr').disabled = !imageBase64Front;
 }
+
 function showStatus(type, msg) {
-  const b = document.getElementById('statusBox'); b.className = 'status-box ' + type; b.innerHTML = msg; b.style.display = type ? 'flex' : 'none';
+  const b = document.getElementById('statusBox'); 
+  b.className = 'status-box ' + type; 
+  b.innerHTML = msg; 
+  b.style.display = type ? 'flex' : 'none';
 }
 
+// =========================================================================
+// ĐOẠN CODE OCR MƯỢT MÀ BẠN CUNG CẤP + TÍNH NĂNG CHẶN CHỮ "N/A"
+// =========================================================================
 async function runOCR() {
   if (!imageBase64Front) return;
   document.getElementById('btnOcr').disabled = true;
-  showStatus('loading', 'Đang phân tích ảnh CCCD, vui lòng chờ...');
-
-  // BƯỚC 1: ĐIỀN API KEY CỦA BẠN VÀO ĐÂY (API Key bắt đầu bằng AIza...)
-  const MY_GEMINI_KEY = 'AIzaSyClnfQ5Smik0NSAYT97qzh6pcHRka_8Frk'; 
+  showStatus('loading', '⏳ Đang phân tích ảnh CCCD, vui lòng chờ...');
 
   const prompt = `Đây là ảnh Căn cước công dân (CCCD) hoặc CCCD điện tử của người Việt Nam.
 Hãy trích xuất các thông tin sau và trả về ĐÚNG định dạng JSON (không có markdown, không giải thích):
-{ "hoTen": "HO VA TEN", "ngaySinh": "DD/MM/YYYY", "gioiTinh": "Nam hoặc Nữ", "noiSinh": "Tên Tỉnh/Thành", "quocTich": "Việt Nam", "diaChi": "Địa chỉ", "soCCCD": "Số thẻ", "ngayCap": "DD/MM/YYYY", "noiCap": "Nơi cấp" }.
-LƯU Ý QUAN TRỌNG: Nếu có bất kỳ trường nào mờ, không đọc được, hãy để giá trị là chuỗi rỗng "". TUYỆT ĐỐI KHÔNG ghi "N/A", "NA", hoặc "không rõ".`; "Địa chỉ thường trú đầy đủ", "soCCCD": "Số CCCD 12 chữ số", "ngayCap": "DD/MM/YYYY", "noiCap": "Nơi cấp CCCD" }`;
+{ "hoTen": "Họ và tên đầy đủ bằng chữ HOA", "ngaySinh": "DD/MM/YYYY", "gioiTinh": "Nam hoặc Nữ", "noiSinh": "Nơi sinh ghi trên CCCD (chỉ tên tỉnh/thành phố)", "quocTich": "Quốc tịch (thường là Việt Nam)", "diaChi": "Địa chỉ thường trú đầy đủ", "soCCCD": "Số CCCD 12 chữ số", "ngayCap": "DD/MM/YYYY", "noiCap": "Nơi cấp CCCD" }`;
 
   const parts = [{ text: prompt }, { inline_data: { mime_type: imageMimeFront, data: imageBase64Front } }];
   if (imageBase64Back) parts.push({ inline_data: { mime_type: imageMimeBack, data: imageBase64Back } });
 
   try {
-    // BƯỚC 2: Gọi TRỰC TIẾP lên máy chủ Google, bỏ qua Cloudflare Proxy
+    // Gọi trực tiếp model gemini-2.5-flash theo nguyên bản của bạn
     const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${MY_GEMINI_KEY}`;
     
     const res = await fetch(geminiUrl, {
@@ -396,6 +528,13 @@ LƯU Ý QUAN TRỌNG: Nếu có bất kỳ trường nào mờ, không đọc đ
     let info;
     try { info = JSON.parse(text); } catch { throw new Error('E104'); }
     
+    // XỬ LÝ CHẶN LỖI N/A THEO YÊU CẦU CỦA BẠN
+    for (let key in info) {
+        if (info[key] === 'N/A' || info[key] === 'NA' || info[key] === 'null' || info[key] === null) {
+            info[key] = '';
+        }
+    }
+    
     fillForm(info);
     showStatus('success', '✅ Đã điền thông tin thành công! Tự động chuyển sang bước tiếp theo...');
     setTimeout(skipToStep2, 1500);
@@ -408,16 +547,24 @@ LƯU Ý QUAN TRỌNG: Nếu có bất kỳ trường nào mờ, không đọc đ
     document.getElementById('btnOcr').disabled = false;
   }
 }
+// =========================================================================
 
 function skipToStep2() {
-  document.getElementById('cardStep1').style.display = 'none'; document.getElementById('cardStep2').style.display = 'block';
-  document.getElementById('step1').classList.add('done'); document.getElementById('step2').classList.add('active'); document.getElementById('line1').classList.add('done');
+  document.getElementById('cardStep1').style.display = 'none'; 
+  document.getElementById('cardStep2').style.display = 'block';
+  document.getElementById('step1').classList.add('done'); 
+  document.getElementById('step2').classList.add('active'); 
+  document.getElementById('line1').classList.add('done');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function fillForm(info) {
   const map = { hoTen: 'hoTen', ngaySinh: 'ngaySinh', quocTich: 'quocTich', diaChi: 'diaChi', soCCCD: 'soCCCD', ngayCap: 'ngayCap', noiSinh: 'noiSinh' };
-  for (const [k, id] of Object.entries(map)) { if(info[k]) document.getElementById(id).value = info[k]; }
+  for (const [k, id] of Object.entries(map)) { 
+      if(info[k]) {
+          document.getElementById(id).value = info[k]; 
+      }
+  }
   if (info.gioiTinh) document.getElementById('gioiTinh').value = info.gioiTinh;
 
   if (info.noiCap) {
@@ -433,7 +580,6 @@ function toggleCoSoKhac(s) { document.getElementById('coSoDaoTaoKhac').style.dis
 function getNoiCap() { const s = document.getElementById('noiCapSelect').value; return s === 'Khác' ? document.getElementById('noiCapKhac').value : s; }
 function getCoSo() { const s = document.getElementById('coSoDaoTaoSelect').value; return s === 'Khác' ? document.getElementById('coSoDaoTaoKhac').value : s; }
 
-// YÊU CẦU 4: KIỂM TRA ĐỊNH DẠNG TÊN FILE MỚI (hovaten.ngaythangnamsinh)
 function validateFileName(input) {
   const nameEl = document.getElementById('nameHoSo'), warnEl = document.getElementById('fileNameWarning');
   if (input.files && input.files[0]) {
@@ -441,7 +587,6 @@ function validateFileName(input) {
     if (!file.name.toLowerCase().endsWith('.pdf')) { alert('Chỉ nhận file PDF'); input.value = ''; return; }
     nameEl.textContent = file.name;
     
-    // Kiểm tra tên file có dấu "." ngăn cách không (Ít nhất 2 phần: Ten.NgaySinh.pdf)
     const parts = file.name.split('.');
     if (parts.length < 2) {
       warnEl.style.color = 'var(--error)'; warnEl.innerHTML = '❌ Tên file sai định dạng (Vd chuẩn: NguyenVanA.01011990)';
@@ -451,11 +596,19 @@ function validateFileName(input) {
   }
 }
 
-function getBase64(file) { return new Promise((resolve) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result.split(',')[1]); reader.readAsDataURL(file); }); }
+function getBase64(file) { 
+    return new Promise((resolve) => { 
+        const reader = new FileReader(); 
+        reader.onload = () => resolve(reader.result.split(',')[1]); 
+        reader.readAsDataURL(file); 
+    }); 
+}
 
 function goToReview() {
   const req = ['hoTen', 'ngaySinh', 'soCCCD', 'ngayCap', 'quocTich', 'diaChi', 'soDienThoai', 'noiSinh'];
-  for (let id of req) { if (!document.getElementById(id).value.trim()) { alert('Vui lòng điền đủ thông tin bắt buộc (*)'); return; } }
+  for (let id of req) { 
+      if (!document.getElementById(id).value.trim()) { alert('Vui lòng điền đủ thông tin bắt buộc (*)'); return; } 
+  }
   if (!getNoiCap() || !getCoSo()) { alert('Vui lòng chọn Nơi cấp và Cơ sở đào tạo'); return; }
   if (!document.getElementById('fileHoSo').files[0]) { alert('Vui lòng tải file hồ sơ PDF'); return; }
 
@@ -466,14 +619,19 @@ function goToReview() {
     <div class="review-item"><span class="review-label">Hồ sơ đính kèm</span><span class="review-value" style="color:var(--success)">${document.getElementById('fileHoSo').files[0].name}</span></div>
   `;
   
-  document.getElementById('cardStep2').style.display = 'none'; document.getElementById('cardStep3').style.display = 'block';
-  document.getElementById('step2').classList.add('done'); document.getElementById('step3').classList.add('active'); document.getElementById('line2').classList.add('done');
+  document.getElementById('cardStep2').style.display = 'none'; 
+  document.getElementById('cardStep3').style.display = 'block';
+  document.getElementById('step2').classList.add('done'); 
+  document.getElementById('step3').classList.add('active'); 
+  document.getElementById('line2').classList.add('done');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function goBackToForm() {
-  document.getElementById('cardStep3').style.display = 'none'; document.getElementById('cardStep2').style.display = 'block';
-  document.getElementById('step3').classList.remove('active'); document.getElementById('line2').classList.remove('done');
+  document.getElementById('cardStep3').style.display = 'none'; 
+  document.getElementById('cardStep2').style.display = 'block';
+  document.getElementById('step3').classList.remove('active'); 
+  document.getElementById('line2').classList.remove('done');
 }
 
 async function submitForm() {
@@ -496,10 +654,14 @@ async function submitForm() {
       })
     });
 
-    document.getElementById('cardStep3').style.display = 'none'; document.getElementById('successScreen').style.display = 'block';
-    document.getElementById('step3').classList.add('done'); document.getElementById('step4').classList.add('active'); document.getElementById('line3').classList.add('done');
+    document.getElementById('cardStep3').style.display = 'none'; 
+    document.getElementById('successScreen').style.display = 'block';
+    document.getElementById('step3').classList.add('done'); 
+    document.getElementById('step4').classList.add('active'); 
+    document.getElementById('line3').classList.add('done');
   } catch (e) {
-    btn.disabled = false; btn.textContent = '✅ Xác Nhận Nộp'; alert('Lỗi mạng, vui lòng thử lại!');
+    btn.disabled = false; btn.textContent = '✅ Xác Nhận Nộp'; 
+    alert('Lỗi mạng, vui lòng thử lại!');
   }
 }
 </script>
