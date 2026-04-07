@@ -6,7 +6,6 @@
 <title>Đăng Ký Dự Thi Chứng Chỉ Bất Động Sản</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* GIAO DIỆN LIGHT MODE (TÔNG SÁNG) CHUYÊN NGHIỆP */
   :root {
     --primary: #1e40af; 
     --primary-light: #eff6ff;
@@ -23,150 +22,55 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg-main);
-    color: var(--text-main);
-    min-height: 100vh;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg-main); color: var(--text-main); min-height: 100vh; }
 
-  header {
-    text-align: center;
-    padding: 40px 20px 24px;
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  }
-
-  .header-badge {
-    display: inline-block;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--primary);
-    background: var(--primary-light);
-    padding: 6px 16px;
-    border-radius: 20px;
-    margin-bottom: 12px;
-    font-weight: 600;
-  }
-
-  header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(22px, 4vw, 32px);
-    color: var(--text-main);
-    line-height: 1.3;
-    margin-bottom: 8px;
-  }
-  
+  header { text-align: center; padding: 40px 20px 24px; background: #fff; border-bottom: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .header-badge { display: inline-block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--primary); background: var(--primary-light); padding: 6px 16px; border-radius: 20px; margin-bottom: 12px; font-weight: 600; }
+  header h1 { font-family: 'Playfair Display', serif; font-size: clamp(22px, 4vw, 32px); color: var(--text-main); line-height: 1.3; margin-bottom: 8px; }
   header h1 span { color: var(--gold); }
-  
-  header p { 
-    color: var(--text-muted); 
-    font-size: 14px; 
-  }
+  header p { color: var(--text-muted); font-size: 14px; }
 
-  .container { 
-    max-width: 760px; 
-    margin: 0 auto; 
-    padding: 32px 20px 80px; 
-  }
+  .container { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
 
-  /* THANH TIẾN TRÌNH 4 BƯỚC */
-  .steps { 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 0; 
-    margin-bottom: 32px; 
-  }
-  
-  .step { 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    gap: 6px; 
-  }
-  
-  .step-circle {
-    width: 32px; height: 32px; border-radius: 50%;
-    border: 2px solid var(--border); background: var(--bg-card);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 600; color: var(--text-muted); transition: all .3s;
-  }
-  
+  .steps { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 32px; }
+  .step { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .step-circle { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); background: var(--bg-card); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: var(--text-muted); transition: all .3s; }
   .step.active .step-circle { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
   .step.done .step-circle { border-color: var(--success); background: var(--success); color: #fff; }
-  
   .step-label { font-size: 11px; color: var(--text-muted); font-weight: 500; white-space: nowrap; }
   .step.active .step-label { color: var(--primary); }
-  
   .step-line { flex: 1; height: 2px; background: var(--border); margin: 0 8px 22px; max-width: 60px; }
   .step-line.done { background: var(--success); }
 
-  /* KHỐI NỘI DUNG (CARDS) */
-  .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 32px; margin-bottom: 24px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  }
-
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
   .card-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--primary); margin-bottom: 6px; }
   .card-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
 
-  /* KHU VỰC TẢI ẢNH */
-  .upload-zone {
-    border: 2px dashed #cbd5e1; border-radius: 12px; padding: 32px 20px;
-    text-align: center; cursor: pointer; transition: all .2s; background: #f8fafc; position: relative;
-  }
+  .upload-zone { border: 2px dashed #cbd5e1; border-radius: 12px; padding: 32px 20px; text-align: center; cursor: pointer; transition: all .2s; background: #f8fafc; position: relative; }
   .upload-zone:hover { border-color: var(--primary); background: var(--primary-light); }
   .upload-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-  
   .upload-icon { font-size: 36px; margin-bottom: 8px; display: block; }
   .upload-zone h3 { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
   .upload-zone p { font-size: 12px; color: var(--text-muted); }
 
   .preview-wrap { margin-top: 12px; display: none; position: relative; }
   .preview-wrap img { width: 100%; max-height: 200px; object-fit: contain; border-radius: 8px; border: 1px solid var(--border); }
-  .preview-remove {
-    position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); border: none; color: #fff;
-    border-radius: 50%; width: 28px; height: 28px; cursor: pointer; display:flex; align-items:center; justify-content:center;
-  }
+  .preview-remove { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); border: none; color: #fff; border-radius: 50%; width: 28px; height: 28px; cursor: pointer; display:flex; align-items:center; justify-content:center; }
 
-  /* KHU VỰC TẢI HỒ SƠ PDF */
-  .file-input-wrapper {
-    position: relative; background: #fff; border: 1px solid var(--border);
-    border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 12px;
-  }
+  .file-input-wrapper { position: relative; background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; }
   .file-input-wrapper input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
   .file-name { font-size: 13px; color: var(--text-main); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .file-btn { background: var(--primary-light); color: var(--primary); padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; pointer-events: none; border: 1px solid #bfdbfe; }
 
-  /* NÚT BẤM VÀ THÔNG BÁO */
-  .btn-ocr {
-    width: 100%; margin-top: 16px; padding: 14px;
-    background: var(--gold); color: #fff; border: none; border-radius: 8px;
-    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer;
-  }
-  .btn-submit {
-    width: 100%; padding: 14px; margin-top: 16px;
-    background: var(--primary); color: #fff; border: none; border-radius: 8px;
-    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer;
-  }
-  .btn-secondary {
-    width: 100%; padding: 14px; margin-top: 16px;
-    background: transparent; color: var(--text-muted); border: 1px solid var(--border); border-radius: 8px;
-    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer;
-  }
+  .btn-ocr { width: 100%; margin-top: 16px; padding: 14px; background: var(--gold); color: #fff; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .btn-submit { width: 100%; padding: 14px; margin-top: 16px; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .btn-secondary { width: 100%; padding: 14px; margin-top: 16px; background: transparent; color: var(--text-muted); border: 1px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; }
   
   .status-box { margin-top: 12px; padding: 10px 14px; border-radius: 8px; font-size: 13px; display: none; align-items: center; gap: 8px; }
   .status-box.loading { background: #fef3c7; border: 1px solid #fde68a; color: #92400e; display: flex; }
   .status-box.success { background: #dcfce7; border: 1px solid #bbf7d0; color: #166534; display: flex; }
   .status-box.error { background: #fee2e2; border: 1px solid #fecaca; color: #991b1b; display: flex; }
 
-  /* BỐ CỤC FORM */
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media(max-width:560px){ .form-grid { grid-template-columns: 1fr; } }
   .form-group { display: flex; flex-direction: column; gap: 6px; }
@@ -185,7 +89,6 @@
 
   .note-box { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 16px; font-size: 13px; color: #9a3412; line-height: 1.6; margin-bottom: 20px; }
 
-  /* GIAO DIỆN RÀ SOÁT & THÀNH CÔNG */
   .review-list { background: var(--bg-main); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
   .review-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed var(--border); }
   .review-item:last-child { border-bottom: none; }
@@ -204,19 +107,14 @@
 </header>
 
 <div class="container">
-
   <div class="steps">
-    <div class="step active" id="step1"><div class="step-circle">1</div><div class="step-label">CCCD</div></div>
-    <div class="step-line" id="line1"></div>
-    <div class="step" id="step2"><div class="step-circle">2</div><div class="step-label">Hồ sơ</div></div>
-    <div class="step-line" id="line2"></div>
-    <div class="step" id="step3"><div class="step-circle">3</div><div class="step-label">Rà soát</div></div>
-    <div class="step-line" id="line3"></div>
+    <div class="step active" id="step1"><div class="step-circle">1</div><div class="step-label">CCCD</div></div><div class="step-line" id="line1"></div>
+    <div class="step" id="step2"><div class="step-circle">2</div><div class="step-label">Hồ sơ</div></div><div class="step-line" id="line2"></div>
+    <div class="step" id="step3"><div class="step-circle">3</div><div class="step-label">Rà soát</div></div><div class="step-line" id="line3"></div>
     <div class="step" id="step4"><div class="step-circle">4</div><div class="step-label">Xong</div></div>
   </div>
 
   <div id="mainForm">
-    
     <div class="card" id="cardStep1">
       <div class="card-title">📷 Quét Căn Cước Công Dân</div>
       <div class="card-subtitle">Chụp ảnh CCCD mặt trước để hệ thống tự động điền thông tin giúp bạn</div>
@@ -226,32 +124,26 @@
           <label style="margin-bottom:8px; display:block;">Mặt trước <span class="required">*</span></label>
           <div class="upload-zone" onclick="document.getElementById('cccdFront').click()">
             <input type="file" id="cccdFront" accept="image/*" style="display:none" onchange="handleFile(this,'front')">
-            <span class="upload-icon">🪪</span>
-            <h3>Chọn ảnh mặt trước</h3>
+            <span class="upload-icon">🪪</span><h3>Chọn ảnh mặt trước</h3>
           </div>
           <div class="preview-wrap" id="previewWrapFront">
-            <img id="previewImgFront" src="" alt="Mặt trước">
-            <button class="preview-remove" onclick="removeFile('front')">✕</button>
+            <img id="previewImgFront" src="" alt="Mặt trước"><button class="preview-remove" onclick="removeFile('front')">✕</button>
           </div>
         </div>
         <div>
           <label style="margin-bottom:8px; display:block; color:var(--text-muted)">Mặt sau (Tùy chọn)</label>
           <div class="upload-zone" onclick="document.getElementById('cccdBack').click()">
             <input type="file" id="cccdBack" accept="image/*" style="display:none" onchange="handleFile(this,'back')">
-            <span class="upload-icon">🪪</span>
-            <h3>Chọn ảnh mặt sau</h3>
+            <span class="upload-icon">🪪</span><h3>Chọn ảnh mặt sau</h3>
           </div>
           <div class="preview-wrap" id="previewWrapBack">
-            <img id="previewImgBack" src="" alt="Mặt sau">
-            <button class="preview-remove" onclick="removeFile('back')">✕</button>
+            <img id="previewImgBack" src="" alt="Mặt sau"><button class="preview-remove" onclick="removeFile('back')">✕</button>
           </div>
         </div>
       </div>
 
       <div class="status-box" id="statusBox"><span id="statusText"></span></div>
-
       <button class="btn-ocr" id="btnOcr" onclick="runOCR()" disabled>✨ Quét & Tự động điền thông tin</button>
-      
       <div style="text-align: center; margin-top: 16px;">
         <a href="javascript:void(0)" onclick="skipToStep2()" style="color: var(--primary); font-size: 13px; font-weight: 500;">Hoặc nhập thông tin thủ công ➔</a>
       </div>
@@ -263,143 +155,43 @@
 
       <div class="section-divider"><span>Thông tin cá nhân</span></div>
       <div class="form-grid">
-        <div class="form-group full">
-          <label>Họ và tên <span class="required">*</span></label>
-          <input type="text" id="hoTen" placeholder="Nguyễn Văn A">
+        <div class="form-group full"><label>Họ và tên <span class="required">*</span></label><input type="text" id="hoTen" placeholder="Nguyễn Văn A"></div>
+        <div class="form-group"><label>Ngày sinh <span class="required">*</span></label><input type="text" id="ngaySinh" placeholder="DD/MM/YYYY"></div>
+        <div class="form-group"><label>Giới tính <span class="required">*</span></label>
+          <select id="gioiTinh"><option value="">-- Chọn --</option><option value="Nam">Nam</option><option value="Nữ">Nữ</option></select>
         </div>
-        <div class="form-group">
-          <label>Ngày sinh <span class="required">*</span></label>
-          <input type="text" id="ngaySinh" placeholder="DD/MM/YYYY">
-        </div>
-        <div class="form-group">
-          <label>Giới tính <span class="required">*</span></label>
-          <select id="gioiTinh">
-            <option value="">-- Chọn --</option>
-            <option value="Nam">Nam</option>
-            <option value="Nữ">Nữ</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label>Nơi sinh <span class="required">*</span><span class="note-label">(Theo địa giới hành chính mới)</span></label>
-          <select id="noiSinh">
-            <option value="">-- Chọn tỉnh/thành phố --</option>
-            <option>Tuyên Quang</option>
-            <option>Cao Bằng</option>
-            <option>Lai Châu</option>
-            <option>Lào Cai</option>
-            <option>Thái Nguyên</option>
-            <option>Điện Biên</option>
-            <option>Lạng Sơn</option>
-            <option>Sơn La</option>
-            <option>Phú Thọ</option>
-            <option>Bắc Ninh</option>
-            <option>Quảng Ninh</option>
-            <option>TP Hà Nội</option>
-            <option>TP Hải Phòng</option>
-            <option>Hưng Yên</option>
-            <option>Ninh Bình</option>
-            <option>Thanh Hoá</option>
-            <option>Nghệ An</option>
-            <option>Hà Tĩnh</option>
-            <option>Quảng Trị</option>
-            <option>TP Huế</option>
-            <option>TP Đà Nẵng</option>
-            <option>Quảng Ngãi</option>
-            <option>Gia Lai</option>
-            <option>Đắk Lắk</option>
-            <option>Khánh Hoà</option>
-            <option>Lâm Đồng</option>
-            <option>Đồng Nai</option>
-            <option>Tây Ninh</option>
-            <option>TP HCM</option>
-            <option>Đồng Tháp</option>
-            <option>An Giang</option>
-            <option>Vĩnh Long</option>
-            <option>TP Cần Thơ</option>
-            <option>Cà Mau</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Quốc tịch <span class="required">*</span></label>
-          <input type="text" id="quocTich" placeholder="Việt Nam">
-        </div>
-        <div class="form-group full">
-          <label>Thường trú <span class="required">*</span><span class="note-label">(Theo địa giới hành chính mới trên VNEID)</span></label>
-          <input type="text" id="diaChi" placeholder="Số nhà, phường/xã, quận/huyện...">
-        </div>
+        <div class="form-group"><label>Nơi sinh <span class="required">*</span><span class="note-label">(Theo địa giới hành chính mới)</span></label><input type="text" id="noiSinh" placeholder="VD: Hà Nội"></div>
+        <div class="form-group"><label>Quốc tịch <span class="required">*</span></label><input type="text" id="quocTich" placeholder="Việt Nam"></div>
+        <div class="form-group full"><label>Thường trú <span class="required">*</span><span class="note-label">(Theo địa giới hành chính mới trên VNEID)</span></label><input type="text" id="diaChi" placeholder="Số nhà, phường/xã, quận/huyện..."></div>
       </div>
 
       <div class="section-divider" style="margin-top:24px;"><span>Giấy tờ tùy thân & Liên hệ</span></div>
       <div class="form-grid">
-        <div class="form-group full">
-          <label>Số CCCD / Hộ chiếu <span class="required">*</span></label>
-          <input type="text" id="soCCCD" placeholder="0123456789xx">
-        </div>
-        <div class="form-group">
-          <label>Ngày cấp <span class="required">*</span></label>
-          <input type="text" id="ngayCap" placeholder="DD/MM/YYYY">
-        </div>
-        <div class="form-group">
-          <label>Nơi cấp <span class="required">*</span></label>
+        <div class="form-group full"><label>Số CCCD / Hộ chiếu <span class="required">*</span></label><input type="text" id="soCCCD" placeholder="0123456789xx"></div>
+        <div class="form-group"><label>Ngày cấp <span class="required">*</span></label><input type="text" id="ngayCap" placeholder="DD/MM/YYYY"></div>
+        <div class="form-group"><label>Nơi cấp <span class="required">*</span></label>
           <select id="noiCapSelect" onchange="toggleNoiCapKhac(this)">
-            <option value="">-- Chọn nơi cấp --</option>
-            <option value="Bộ Công An">Bộ Công An</option>
-            <option value="Cục Cảnh sát quản lý hành chính về trật tự xã hội">Cục Cảnh sát quản lý hành chính về trật tự xã hội</option>
-            <option value="Cục Cảnh sát ĐKQL cư trú và DLQG về dân cư">Cục Cảnh sát ĐKQL cư trú và DLQG về dân cư</option>
-            <option value="Trung tâm dữ liệu quốc gia về dân cư">Trung tâm dữ liệu quốc gia về dân cư</option>
-            <option value="Khác">Khác (tự nhập)</option>
+            <option value="">-- Chọn nơi cấp --</option><option value="Bộ Công An">Bộ Công An</option><option value="Cục Cảnh sát quản lý hành chính về trật tự xã hội">Cục Cảnh sát quản lý hành chính về trật tự xã hội</option><option value="Cục Cảnh sát ĐKQL cư trú và DLQG về dân cư">Cục Cảnh sát ĐKQL cư trú và DLQG về dân cư</option><option value="Trung tâm dữ liệu quốc gia về dân cư">Trung tâm dữ liệu quốc gia về dân cư</option><option value="Khác">Khác (tự nhập)</option>
           </select>
           <input type="text" id="noiCapKhac" placeholder="Nhập nơi cấp..." style="display:none;margin-top:8px;">
         </div>
-        <div class="form-group">
-          <label>Số điện thoại <span class="required">*</span></label>
-          <input type="tel" id="soDienThoai" placeholder="09xxxxxxxx">
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="email" placeholder="example@gmail.com">
-        </div>
-        <div class="form-group full">
-          <label>Cơ sở đào tạo <span class="required">*</span></label>
+        <div class="form-group"><label>Số điện thoại <span class="required">*</span></label><input type="tel" id="soDienThoai" placeholder="09xxxxxxxx"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="email" placeholder="example@gmail.com"></div>
+        <div class="form-group full"><label>Cơ sở đào tạo <span class="required">*</span></label>
           <select id="coSoDaoTaoSelect" onchange="toggleCoSoKhac(this)">
-            <option value="">-- Chọn cơ sở đào tạo --</option>
-            <option>Trung tâm Nghiên cứu nhà ở và thị trường bất động sản</option>
-            <option>Công ty Cổ phần Bất động sản Thiên Khôi</option>
-            <option>Viện Đào Tạo Bất Động Sản</option>
-            <option>Công ty Cổ phần Khoa học Xây dựng</option>
-            <option>Viện Đào Tạo Và Hợp Tác Giáo Dục</option>
-            <option>Viện Đào Tạo Bất Động Sản Liên Việt</option>
-            <option>Công ty TNHH dịch vụ và đầu tư bất động sản Hợp Phát</option>
-            <option>Trường Cao đẳng Công nghệ cao Hà Nội</option>
-            <option>Viện nghiên cứu đánh giá thị trường bất động sản Việt Nam</option>
-            <option>Công ty cổ phần CITI Việt Nam</option>
-            <option>Viên Quản lý Đào tạo ESC Việt Nam</option>
-            <option>Viện đào tạo nhân lực xây dựng Việt Nam</option>
-            <option>Công ty Cổ phần Đào tạo Bất động sản Đất Vàng</option>
-            <option>Trường Đại học Kinh tế Quốc dân</option>
-            <option value="Khác">Khác (tự nhập)</option>
+            <option value="">-- Chọn cơ sở đào tạo --</option><option>Trung tâm Nghiên cứu nhà ở và thị trường bất động sản</option><option value="Khác">Khác (tự nhập)</option>
           </select>
           <input type="text" id="coSoDaoTaoKhac" placeholder="Nhập tên cơ sở đào tạo..." style="display:none;margin-top:8px;">
         </div>
-        <div class="form-group">
-          <label>Số TK ngân hàng</label>
-          <input type="text" id="soTaiKhoan" placeholder="Số tài khoản">
-        </div>
-        <div class="form-group">
-          <label>Chứng chỉ cũ (nếu có)</label>
-          <input type="text" id="soChungChi" placeholder="Để trống nếu không có">
-        </div>
+        <div class="form-group"><label>Số TK ngân hàng</label><input type="text" id="soTaiKhoan" placeholder="Số tài khoản"></div>
+        <div class="form-group"><label>Chứng chỉ cũ (nếu có)</label><input type="text" id="soChungChi"></div>
       </div>
 
       <div class="section-divider" style="margin-top:24px;"><span>Tải lên hồ sơ (File PDF)</span></div>
       <div class="note-box">
         <strong style="color:#c2410c; display:block; margin-bottom:4px;">📌 Thành phần hồ sơ (Gộp chung vào 1 file PDF duy nhất):</strong>
         <ul style="padding-left:18px; color:#9a3412; font-size: 12px;">
-          <li>Đơn đăng ký có dán ảnh 4x6 (Mẫu Phụ lục XXI)</li>
-          <li>Bản sao chứng thực CCCD/Hộ chiếu</li>
-          <li>Giấy chứng nhận hoàn thành khóa học BĐS</li>
-          <li>Bằng tốt nghiệp từ THPT trở lên</li>
+          <li>Đơn đăng ký có dán ảnh 4x6 (Mẫu Phụ lục XXI)</li><li>Bản sao chứng thực CCCD/Hộ chiếu</li><li>Giấy chứng nhận hoàn thành khóa học BĐS</li><li>Bằng tốt nghiệp từ THPT trở lên</li>
         </ul>
       </div>
 
@@ -407,8 +199,7 @@
         <div class="file-input-wrapper" style="height: auto; padding: 15px; flex-direction: column; align-items: flex-start; background: var(--bg-main);">
           <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
             <input type="file" id="fileHoSo" accept=".pdf" onchange="validateFileName(this)">
-            <div class="file-btn">Chọn file PDF</div>
-            <div class="file-name" id="nameHoSo" style="font-weight: 600; color:var(--primary)">Chưa chọn tệp...</div>
+            <div class="file-btn">Chọn file PDF</div><div class="file-name" id="nameHoSo" style="font-weight: 600; color:var(--primary)">Chưa chọn tệp...</div>
           </div>
           <div id="fileNameWarning" style="margin-top: 10px; font-size: 12px; color: var(--text-muted);">
             ⚠️ Quy tắc đặt tên file: <strong>HoVaTen.NgayThangNamSinh</strong> (Ví dụ: NguyenVanA.01011990)
@@ -422,15 +213,12 @@
     <div class="card" id="cardStep3" style="display:none;">
       <div class="card-title">🔍 Rà Soát Thông Tin</div>
       <div class="card-subtitle">Kiểm tra kỹ thông tin trước khi Nộp hồ sơ chính thức lên Sở Xây Dựng.</div>
-
       <div class="review-list" id="reviewContent"></div>
-
       <div style="display:flex; gap:12px;">
         <button class="btn-secondary" onclick="goBackToForm()">⬅ Chỉnh sửa</button>
         <button class="btn-submit" id="btnSubmitFinal" onclick="submitForm()">✅ Xác Nhận Nộp</button>
       </div>
     </div>
-
   </div>
 
   <div id="successScreen">
@@ -438,21 +226,15 @@
     <h2 style="color:var(--primary); font-family:'Playfair Display',serif; margin-bottom:12px;">Nộp hồ sơ thành công!</h2>
     <p style="color:var(--text-muted); line-height: 1.6;">Hồ sơ của bạn đã được ghi nhận vào hệ thống Sở Xây Dựng.<br>Chúng tôi sẽ liên hệ qua email và số điện thoại.<br><strong style="color:var(--success)">Chúc bạn thi tốt!</strong></p>
   </div>
-
 </div>
 
 <script>
-// =========================================================================
-// THÔNG TIN CẤU HÌNH CỦA BẠN ĐÃ ĐƯỢC ĐIỀN ĐẦY ĐỦ Ở ĐÂY
-const MY_GEMINI_KEY = 'AIzaSyClnfQ5Smik0NSAYT97qzh6pcHRka_8Frk';
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxvr7t9s3AyyzWkNDvWQp9J7T7fCr2-FUA_i1PtN4Lni5y59xdQKAIEJEwrxRkI2PWL-A/exec';
-// =========================================================================
+// KHÔNG CẦN ĐIỀN API KEY NỮA, CHỈ CẦN LINK APPS SCRIPT
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzcPDraXTk4_Z4XSuxL7IX23DmjtAlN4FrqJ8FkA7GIUc5owZhT8yDgXVixM0rKQnFFSg/exec';
 
 let imageBase64Front = '', imageMimeFront = '', imageBase64Back = '', imageMimeBack = '';
 
-function handleFile(input, side) {
-  if (input.files[0]) processFile(input.files[0], side);
-}
+function handleFile(input, side) { if (input.files && input.files[0]) processFile(input.files[0], side); }
 
 function processFile(file, side) {
   const reader = new FileReader();
@@ -473,235 +255,29 @@ function processFile(file, side) {
 }
 
 function removeFile(side) {
-  if (side === 'front') { 
-    imageBase64Front = ''; document.getElementById('previewWrapFront').style.display = 'none'; document.getElementById('cccdFront').value = ''; 
-  } else { 
-    imageBase64Back = ''; document.getElementById('previewWrapBack').style.display = 'none'; document.getElementById('cccdBack').value = ''; 
-  }
-  document.getElementById('btnOcr').disabled = !imageBase64Front;
-}
-
-function showStatus(type, msg) {
-  const b = document.getElementById('statusBox'); 
-  b.className = 'status-box ' + type; 
-  b.innerHTML = msg; 
-  b.style.display = type ? 'flex' : 'none';
-}
-
-// =========================================================================
-// ĐOẠN CODE OCR MƯỢT MÀ BẠN CUNG CẤP + TÍNH NĂNG CHẶN CHỮ "N/A"
-// =========================================================================
-async function runOCR() {
-  if (!imageBase64Front) return;
-  document.getElementById('btnOcr').disabled = true;
-  showStatus('loading', '⏳ Đang phân tích ảnh CCCD, vui lòng chờ...');
-
-  const prompt = `Đây là ảnh Căn cước công dân (CCCD) hoặc CCCD điện tử của người Việt Nam.
-Hãy trích xuất các thông tin sau và trả về ĐÚNG định dạng JSON (không có markdown, không giải thích):
-{ "hoTen": "Họ và tên đầy đủ bằng chữ HOA", "ngaySinh": "DD/MM/YYYY", "gioiTinh": "Nam hoặc Nữ", "noiSinh": "Nơi sinh ghi trên CCCD (chỉ tên tỉnh/thành phố)", "quocTich": "Quốc tịch (thường là Việt Nam)", "diaChi": "Địa chỉ thường trú đầy đủ", "soCCCD": "Số CCCD 12 chữ số", "ngayCap": "DD/MM/YYYY", "noiCap": "Nơi cấp CCCD" }`;
-
-  const parts = [{ text: prompt }, { inline_data: { mime_type: imageMimeFront, data: imageBase64Front } }];
-  if (imageBase64Back) parts.push({ inline_data: { mime_type: imageMimeBack, data: imageBase64Back } });
-
-  try {
-    // Gọi trực tiếp model gemini-2.5-flash theo nguyên bản của bạn
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${MY_GEMINI_KEY}`;
-    
-    const res = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts }],
-        generationConfig: { temperature: 0 }
-      })
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.error?.message || 'Lỗi từ Google API');
-    }
-
-    let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    text = text.replace(/```json|```/g, '').trim();
-    
-    let info;
-    try { info = JSON.parse(text); } catch { throw new Error('E104'); }
-    
-    // XỬ LÝ CHẶN LỖI N/A THEO YÊU CẦU CỦA BẠN
-    for (let key in info) {
-        if (info[key] === 'N/A' || info[key] === 'NA' || info[key] === 'null' || info[key] === null) {
-            info[key] = '';
-        }
-    }
-    
-    fillForm(info);
-    showStatus('success', '✅ Đã điền thông tin thành công! Tự động chuyển sang bước tiếp theo...');
-    setTimeout(skipToStep2, 1500);
-
-  } catch (e) {
-    console.error("Lỗi:", e);
-    let thongBao = e.message;
-    if (e.message === 'E104') thongBao = 'Không đọc được thông tin từ ảnh, vui lòng chụp lại rõ hơn';
-    showStatus('error', '❌ Lỗi: ' + thongBao);
-    document.getElementById('btnOcr').disabled = false;
-  }
-}
-// =========================================================================
-
-function skipToStep2() {
-  document.getElementById('cardStep1').style.display = 'none'; 
-  document.getElementById('cardStep2').style.display = 'block';
-  document.getElementById('step1').classList.add('done'); 
-  document.getElementById('step2').classList.add('active'); 
-  document.getElementById('line1').classList.add('done');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function fillForm(info) {
-  const map = { hoTen: 'hoTen', ngaySinh: 'ngaySinh', quocTich: 'quocTich', diaChi: 'diaChi', soCCCD: 'soCCCD', ngayCap: 'ngayCap', noiSinh: 'noiSinh' };
-  for (const [k, id] of Object.entries(map)) { 
-      if(info[k]) {
-          document.getElementById(id).value = info[k]; 
-      }
-  }
-  if (info.gioiTinh) document.getElementById('gioiTinh').value = info.gioiTinh;
-
-  if (info.noiCap) {
-    const sel = document.getElementById('noiCapSelect');
-    if (info.noiCap.toLowerCase().includes('cục cảnh sát quản lý')) sel.value = 'Cục Cảnh sát quản lý hành chính về trật tự xã hội';
-    else if (info.noiCap.toLowerCase().includes('dữ liệu quốc gia') || info.noiCap.toLowerCase().includes('đkql')) sel.value = 'Trung tâm dữ liệu quốc gia về dân cư';
-    else { sel.value = 'Khác'; document.getElementById('noiCapKhac').value = info.noiCap; document.getElementById('noiCapKhac').style.display = 'block'; }
-  }
-}
-
-function toggleNoiCapKhac(s) { document.getElementById('noiCapKhac').style.display = s.value === 'Khác' ? 'block' : 'none'; }
-function toggleCoSoKhac(s) { document.getElementById('coSoDaoTaoKhac').style.display = s.value === 'Khác' ? 'block' : 'none'; }
-function getNoiCap() { const s = document.getElementById('noiCapSelect').value; return s === 'Khác' ? document.getElementById('noiCapKhac').value : s; }
-function getCoSo() { const s = document.getElementById('coSoDaoTaoSelect').value; return s === 'Khác' ? document.getElementById('coSoDaoTaoKhac').value : s; }
-
-function validateFileName(input) {
-  const nameEl = document.getElementById('nameHoSo'), warnEl = document.getElementById('fileNameWarning');
-  if (input.files && input.files[0]) {
-    const file = input.files[0];
-    if (!file.name.toLowerCase().endsWith('.pdf')) { alert('Chỉ nhận file PDF'); input.value = ''; return; }
-    nameEl.textContent = file.name;
-    
-    const parts = file.name.split('.');
-    if (parts.length < 2) {
-      warnEl.style.color = 'var(--error)'; warnEl.innerHTML = '❌ Tên file sai định dạng (Vd chuẩn: NguyenVanA.01011990)';
-    } else {
-      warnEl.style.color = 'var(--success)'; warnEl.innerHTML = '✅ Tên file hợp lệ.';
-    }
-  }
-}
-
-function getBase64(file) { 
-    return new Promise((resolve) => { 
-        const reader = new FileReader(); 
-        reader.onload = () => resolve(reader.result.split(',')[1]); 
-        reader.readAsDataURL(file); 
-    }); 
-}
-
-function goToReview() {
-  const req = ['hoTen', 'ngaySinh', 'soCCCD', 'ngayCap', 'quocTich', 'diaChi', 'soDienThoai', 'noiSinh'];
-  for (let id of req) { 
-      if (!document.getElementById(id).value.trim()) { alert('Vui lòng điền đủ thông tin bắt buộc (*)'); return; } 
-  }
-  if (!getNoiCap() || !getCoSo()) { alert('Vui lòng chọn Nơi cấp và Cơ sở đào tạo'); return; }
-  if (!document.getElementById('fileHoSo').files[0]) { alert('Vui lòng tải file hồ sơ PDF'); return; }
-
-  document.getElementById('reviewContent').innerHTML = `
-    <div class="review-item"><span class="review-label">Họ Tên</span><span class="review-value">${document.getElementById('hoTen').value}</span></div>
-    <div class="review-item"><span class="review-label">CCCD</span><span class="review-value">${document.getElementById('soCCCD').value}</span></div>
-    <div class="review-item"><span class="review-label">Ngày cấp - Nơi cấp</span><span class="review-value">${document.getElementById('ngayCap').value} - ${getNoiCap()}</span></div>
-    <div class="review-item"><span class="review-label">Hồ sơ đính kèm</span><span class="review-value" style="color:var(--success)">${document.getElementById('fileHoSo').files[0].name}</span></div>
-  `;
-  
-  document.getElementById('cardStep2').style.display = 'none'; 
-  document.getElementById('cardStep3').style.display = 'block';
-  document.getElementById('step2').classList.add('done'); 
-  document.getElementById('step3').classList.add('active'); 
-  document.getElementById('line2').classList.add('done');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function goBackToForm() {
-  document.getElementById('cardStep3').style.display = 'none'; 
-  document.getElementById('cardStep2').style.display = 'block';
-  document.getElementById('step3').classList.remove('active'); 
-  document.getElementById('line2').classList.remove('done');
-}
-
-async function submitForm() {
-  const btn = document.getElementById('btnSubmitFinal');
-  btn.disabled = true; btn.textContent = '⏳ Đang lưu dữ liệu và tệp...';
-
-  try {
-    const fileBase64 = await getBase64(document.getElementById('fileHoSo').files[0]);
-    
-    await fetch(SCRIPT_URL, {
-      method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        thoiGianNop: new Date().toLocaleString('vi-VN'),
-        hoTen: document.getElementById('hoTen').value, ngaySinh: document.getElementById('ngaySinh').value, gioiTinh: document.getElementById('gioiTinh').value,
-        noiSinh: document.getElementById('noiSinh').value, quocTich: document.getElementById('quocTich').value, diaChi: document.getElementById('diaChi').value,
-        soCCCD: document.getElementById('soCCCD').value, ngayCap: document.getElementById('ngayCap').value, noiCap: getNoiCap(),
-        soDienThoai: document.getElementById('soDienThoai').value, email: document.getElementById('email').value,
-        coSoDaoTao: getCoSo(), soTaiKhoan: document.getElementById('soTaiKhoan').value, soChungChi: document.getElementById('soChungChi').value,
-        filePdfBase64: fileBase64, fileName: document.getElementById('fileHoSo').files[0].name
-      })
-    });
-
-    document.getElementById('cardStep3').style.display = 'none'; 
-    document.getElementById('successScreen').style.display = 'block';
-    document.getElementById('step3').classList.add('done'); 
-    document.getElementById('step4').classList.add('active'); 
-    document.getElementById('line3').classList.add('done');
-  } catch (e) {
-    btn.disabled = false; btn.textContent = '✅ Xác Nhận Nộp'; 
-    alert('Lỗi mạng, vui lòng thử lại!');
-  }
-}
-<script>
-// BẠN CHỈ CẦN ĐIỀN ĐÚNG 1 LINK APPS SCRIPT Ở ĐÂY, KHÔNG CẦN API KEY NỮA
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzcPDraXTk4_Z4XSuxL7IX23DmjtAlN4FrqJ8FkA7GIUc5owZhT8yDgXVixM0rKQnFFSg/exec';
-
-let imageBase64Front = '', imageMimeFront = '', imageBase64Back = '', imageMimeBack = '';
-
-function handleFile(input, side) { if (input.files[0]) processFile(input.files[0], side); }
-function processFile(file, side) {
-  const reader = new FileReader();
-  reader.onload = e => {
-    const b64 = e.target.result.split(',')[1];
-    if (side === 'front') { imageBase64Front = b64; imageMimeFront = file.type; document.getElementById('previewImgFront').src = e.target.result; document.getElementById('previewWrapFront').style.display = 'block'; }
-    else { imageBase64Back = b64; imageMimeBack = file.type; document.getElementById('previewImgBack').src = e.target.result; document.getElementById('previewWrapBack').style.display = 'block'; }
-    document.getElementById('btnOcr').disabled = !imageBase64Front;
-  };
-  reader.readAsDataURL(file);
-}
-function removeFile(side) {
   if (side === 'front') { imageBase64Front = ''; document.getElementById('previewWrapFront').style.display = 'none'; document.getElementById('cccdFront').value = ''; }
   else { imageBase64Back = ''; document.getElementById('previewWrapBack').style.display = 'none'; document.getElementById('cccdBack').value = ''; }
   document.getElementById('btnOcr').disabled = !imageBase64Front;
 }
+
 function showStatus(type, msg) {
   const b = document.getElementById('statusBox'); b.className = 'status-box ' + type; b.innerHTML = msg; b.style.display = type ? 'flex' : 'none';
 }
 
-// 1. CHẠY OCR THÔNG QUA APPS SCRIPT
+// ==========================================
+// OCR AN TOÀN QUA APPS SCRIPT
+// ==========================================
 async function runOCR() {
   if (!imageBase64Front) return;
   document.getElementById('btnOcr').disabled = true;
-  showStatus('loading', '⏳ Đang quét dữ liệu CCCD an toàn qua hệ thống Sở...');
+  showStatus('loading', '⏳ Đang phân tích ảnh CCCD an toàn qua hệ thống Sở...');
 
   try {
     const res = await fetch(SCRIPT_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Tránh lỗi CORS
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
-        action: 'ocr', // Báo cho Apps Script biết đây là lệnh quét ảnh
+        action: 'ocr',
         imageBase64Front: imageBase64Front, imageMimeFront: imageMimeFront,
         imageBase64Back: imageBase64Back, imageMimeBack: imageMimeBack
       })
@@ -717,7 +293,7 @@ async function runOCR() {
     showStatus('success', '✅ Quét thành công! Chuyển trang...');
     setTimeout(skipToStep2, 1000);
   } catch (e) {
-    showStatus('error', '❌ Lỗi hệ thống: ' + e.message);
+    showStatus('error', '❌ Lỗi hệ thống hoặc API Key chưa được cập nhật trong Apps Script. Chi tiết: ' + e.message);
     document.getElementById('btnOcr').disabled = false;
   }
 }
@@ -782,7 +358,6 @@ function goBackToForm() {
   document.getElementById('step3').classList.remove('active'); document.getElementById('line2').classList.remove('done');
 }
 
-// 2. GỬI HỒ SƠ THÔNG QUA APPS SCRIPT
 async function submitForm() {
   const btn = document.getElementById('btnSubmitFinal');
   btn.disabled = true; btn.textContent = '⏳ Đang lưu dữ liệu và tệp...';
@@ -791,10 +366,9 @@ async function submitForm() {
     const fileBase64 = await getBase64(document.getElementById('fileHoSo').files[0]);
     
     await fetch(SCRIPT_URL, {
-      method: 'POST', 
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Đã thay đổi để tránh lỗi CORS
+      method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
-        action: 'submit', // Báo cho Apps Script biết đây là lệnh nộp hồ sơ
+        action: 'submit',
         thoiGianNop: new Date().toLocaleString('vi-VN'),
         hoTen: document.getElementById('hoTen').value, ngaySinh: document.getElementById('ngaySinh').value, gioiTinh: document.getElementById('gioiTinh').value,
         noiSinh: document.getElementById('noiSinh').value, quocTich: document.getElementById('quocTich').value, diaChi: document.getElementById('diaChi').value,
