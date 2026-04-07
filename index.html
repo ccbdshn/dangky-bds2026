@@ -547,28 +547,53 @@ Hãy trích xuất các thông tin sau và trả về ĐÚNG định dạng JSON
   if (imageBase64Back) parts.push({ inline_data: { mime_type: imageMimeBack, data: imageBase64Back } });
 
   try {
+    console.log("1. Đang gửi request lên proxy...");
+    
     const res = await fetch('https://gemini-proxy.landh0510.workers.dev/', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ contents: [{ parts }] })
-    }).catch(() => { throw new Error('E105'); });
+    });
 
-    const data = await res.json();
-    if (!res.ok || data.error) throw new Error('E' + (data.errorCode || 199));
+    console.log("2. Mã trạng thái HTTP:", res.status);
+    
+    // Đọc dạng text trước để xem Proxy có trả về lỗi HTML không
+    const rawText = await res.text(); 
+    console.log("3. Phản hồi thô từ server:", rawText);
+
+    let data;
+    try {
+       data = JSON.parse(rawText);
+    } catch(err) {
+       throw new Error("Proxy không hoạt động hoặc trả về dữ liệu sai (Không phải JSON).");
+    }
+
+    // Nếu API Gemini trả về lỗi (ví dụ hết hạn ngạch)
+    if (!res.ok || data.error) {
+        console.error("Lỗi từ API/Proxy:", data.error);
+        const errorMsg = data.error?.message || 'Lỗi không xác định từ Gemini API';
+        throw new Error(errorMsg);
+    }
 
     let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
     text = text.replace(/```json|```/g, '').trim();
+    console.log("4. Chuỗi JSON bóc tách được:", text);
+    
     let info;
     try { info = JSON.parse(text); } catch { throw new Error('E104'); }
     
     fillForm(info);
     showStatus('success', '✅ Đã điền thông tin thành công! Tự động chuyển sang bước tiếp theo...');
-    
-    // Tự động chuyển sang bước 2 sau 1.5s
     setTimeout(skipToStep2, 1500);
 
   } catch (e) {
-    let thongBao = 'Hãy thử lại hoặc nhập tay thông tin';
+    console.error("Lỗi chi tiết:", e); // In màu đỏ ra F12 Console
+    
+    let thongBao = 'Lỗi hệ thống: ' + e.message;
     if (e.message === 'E104') thongBao = 'Không đọc được thông tin từ ảnh, vui lòng chụp lại rõ hơn';
+    else if (e.message.includes('Failed to fetch')) thongBao = 'Lỗi mạng hoặc Proxy (Cloudflare Worker) bị sập.';
+    
+    // Hiển thị trực tiếp lỗi thực sự ra màn hình để thí sinh/bạn dễ thấy
     showStatus('error', '❌ ' + thongBao);
     document.getElementById('btnOcr').disabled = false;
   }
