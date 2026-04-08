@@ -320,16 +320,19 @@
 // ============================================================
 // CẤU HÌNH API
 // ============================================================
-// BẠN HÃY ĐIỀN API KEY MỚI CỦA BẠN VÀO ĐÂY NHÉ:
-const MY_GEMINI_KEY = 'AIzaSyAcyaLUGYUSw9jdW9XLkfsy8LuG_Ioabk0'; 
+// ĐÃ XÓA GEMINI KEY Ở ĐÂY ĐỂ BẢO MẬT. API KEY GIỜ ĐƯỢC GIẤU TRÊN CLOUDFLARE.
 
 const CONFIG = {
   // SCRIPT URL GỐC CỦA BẠN (Không thay đổi)
   SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzcPDraXTk4_Z4XSuxL7IX23DmjtAlN4FrqJ8FkA7GIUc5owZhT8yDgXVixM0rKQnFFSg/exec'
 };
 
+// ĐƯỜNG DẪN CLOUDFLARE WORKER CỦA BẠN
+// BẠN PHẢI KIỂM TRA LẠI XEM ĐƯỜNG DẪN NÀY ĐÃ CHÍNH XÁC 100% CHƯA (Lấy trên Cloudflare)
+const WORKER_URL = 'https://gemini-ocr-proxy.ccbds.workers.dev';
+
 // ============================================================
-// XỬ LÝ ẢNH & OCR (SỬ DỤNG LẠI MÃ GỐC "CHẠY RẤT MƯỢT")
+// XỬ LÝ ẢNH & OCR 
 // ============================================================
 let imageBase64Front = '', imageMimeFront = '';
 let imageBase64Back = '', imageMimeBack = '';
@@ -383,7 +386,7 @@ function showStatus(type, msg) {
 async function runOCR() {
   if (!imageBase64Front) return;
   document.getElementById('btnOcr').disabled = true;
-  showStatus('loading', 'Đang phân tích ảnh CCCD, vui lòng chờ...');
+  showStatus('loading', 'Đang phân tích ảnh CCCD qua máy chủ an toàn, vui lòng chờ...');
 
   const prompt = `Đây là ảnh Căn cước công dân (CCCD) hoặc CCCD điện tử của người Việt Nam.
 Hãy trích xuất các thông tin sau và trả về ĐÚNG định dạng JSON (không có markdown, không giải thích):
@@ -392,13 +395,9 @@ Hãy trích xuất các thông tin sau và trả về ĐÚNG định dạng JSON
   const parts = [{ text: prompt }, { inline_data: { mime_type: imageMimeFront, data: imageBase64Front } }];
   if (imageBase64Back) parts.push({ inline_data: { mime_type: imageMimeBack, data: imageBase64Back } });
 
-try {
-    // THAY ĐỔI TẠI ĐÂY: Xóa bỏ URL cũ của Google có chứa API KEY
-    // Thay bằng đường dẫn (URL) Cloudflare Worker của bạn
-    // Ví dụ: https://gemini-ocr-proxy.taikhoancuaban.workers.dev
-    const workerUrl = `https://gemini-ocr-proxy.ccbds.workers.dev`; 
-    
-    const res = await fetch(workerUrl, {
+  try {
+    // Gọi qua Cloudflare Worker thay vì gọi thẳng Google
+    const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -407,11 +406,10 @@ try {
       })
     });
 
-    // Các phần xử lý kết quả bên dưới giữ nguyên...
     const data = await res.json();
 
     if (!res.ok) {
-      throw new Error(data.error?.message || 'Lỗi từ Google API');
+      throw new Error(data.error?.message || data.error || 'Lỗi từ máy chủ Cloudflare');
     }
 
     let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
@@ -425,9 +423,11 @@ try {
     setTimeout(skipToStep2, 1500);
 
   } catch (e) {
-    console.error("Lỗi:", e);
+    console.error("Lỗi chi tiết:", e);
     let thongBao = e.message;
     if (e.message === 'E104') thongBao = 'Không đọc được thông tin từ ảnh, vui lòng chụp lại rõ hơn';
+    if (e.message === 'Failed to fetch') thongBao = 'Không thể kết nối đến máy chủ Cloudflare. Vui lòng kiểm tra lại đường dẫn WORKER_URL trong code.';
+    
     showStatus('error', '❌ Lỗi: ' + thongBao);
     document.getElementById('btnOcr').disabled = false;
   }
@@ -597,7 +597,7 @@ async function submitForm() {
       fileName: fileName
     };
 
-    // Gửi data về Google Apps Script (Sử dụng URL Gốc 100% của bạn)
+    // Gửi data về Google Apps Script
     await fetch(CONFIG.SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
