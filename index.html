@@ -392,11 +392,13 @@ Hãy trích xuất các thông tin sau và trả về ĐÚNG định dạng JSON
   const parts = [{ text: prompt }, { inline_data: { mime_type: imageMimeFront, data: imageBase64Front } }];
   if (imageBase64Back) parts.push({ inline_data: { mime_type: imageMimeBack, data: imageBase64Back } });
 
-  try {
-    // Gọi TRỰC TIẾP lên máy chủ Google như bản gốc bạn cung cấp
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${MY_GEMINI_KEY}`;
+try {
+    // THAY ĐỔI TẠI ĐÂY: Xóa bỏ URL cũ của Google có chứa API KEY
+    // Thay bằng đường dẫn (URL) Cloudflare Worker của bạn
+    // Ví dụ: https://gemini-ocr-proxy.taikhoancuaban.workers.dev
+    const workerUrl = `https://gemini-ocr-proxy.ccbds.workers.dev`; 
     
-    const res = await fetch(geminiUrl, {
+    const res = await fetch(workerUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -405,6 +407,7 @@ Hãy trích xuất các thông tin sau và trả về ĐÚNG định dạng JSON
       })
     });
 
+    // Các phần xử lý kết quả bên dưới giữ nguyên...
     const data = await res.json();
 
     if (!res.ok) {
