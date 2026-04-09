@@ -322,20 +322,18 @@
 
 <script>
 // ============================================================
-// CẤU HÌNH API
+// 1. CẤU HÌNH API & ĐƯỜNG DẪN
 // ============================================================
-// ĐÃ XÓA GEMINI KEY Ở ĐÂY ĐỂ BẢO MẬT. API KEY GIỜ ĐƯỢC GIẤU TRÊN CLOUDFLARE.
-
 const CONFIG = {
+  // Đường dẫn Google Apps Script của bạn (Hãy đảm bảo nó chính xác)
   SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzcPDraXTk4_Z4XSuxL7IX23DmjtAlN4FrqJ8FkA7GIUc5owZhT8yDgXVixM0rKQnFFSg/exec'
 };
 
-// ĐƯỜNG DẪN CLOUDFLARE WORKER CỦA BẠN
-// BẠN PHẢI KIỂM TRA LẠI XEM ĐƯỜNG DẪN NÀY ĐÃ CHÍNH XÁC 100% CHƯA (Lấy trên Cloudflare)
+// Đường dẫn Cloudflare Worker của bạn (Đã sửa đúng link mới)
 const WORKER_URL = 'https://gemini-proxy.landh0510.workers.dev/';
 
 // ============================================================
-// XỬ LÝ ẢNH & OCR 
+// 2. XỬ LÝ ẢNH & OCR AI
 // ============================================================
 let imageBase64Front = '', imageMimeFront = '';
 let imageBase64Back = '', imageMimeBack = '';
@@ -399,21 +397,14 @@ Hãy trích xuất các thông tin sau và trả về ĐÚNG định dạng JSON
   if (imageBase64Back) parts.push({ inline_data: { mime_type: imageMimeBack, data: imageBase64Back } });
 
   try {
-    // Gọi qua Cloudflare Worker thay vì gọi thẳng Google
     const res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts }],
-        generationConfig: { temperature: 0 }
-      })
+      body: JSON.stringify({ contents: [{ parts }], generationConfig: { temperature: 0 } })
     });
 
     const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.error?.message || data.error || 'Lỗi từ máy chủ Cloudflare');
-    }
+    if (!res.ok) throw new Error(data.error?.message || data.error || 'Lỗi từ máy chủ Cloudflare');
 
     let text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
     text = text.replace(/```json|```/g, '').trim();
@@ -426,11 +417,9 @@ Hãy trích xuất các thông tin sau và trả về ĐÚNG định dạng JSON
     setTimeout(skipToStep2, 1500);
 
   } catch (e) {
-    console.error("Lỗi chi tiết:", e);
     let thongBao = e.message;
     if (e.message === 'E104') thongBao = 'Không đọc được thông tin từ ảnh, vui lòng chụp lại rõ hơn';
-    if (e.message === 'Failed to fetch') thongBao = 'Không thể kết nối đến máy chủ Cloudflare. Vui lòng kiểm tra lại đường dẫn WORKER_URL trong code.';
-    
+    if (e.message === 'Failed to fetch') thongBao = 'Không thể kết nối đến máy chủ Cloudflare.';
     showStatus('error', '❌ Lỗi: ' + thongBao);
     document.getElementById('btnOcr').disabled = false;
   }
@@ -453,13 +442,11 @@ function fillForm(info) {
     el.value = info[key]; el.classList.add('filled');
   }
   if (info.gioiTinh) document.getElementById('gioiTinh').value = info.gioiTinh;
-  
   if (info.noiSinh) {
     const selNoiSinh = document.getElementById('noiSinh');
     const match = Array.from(selNoiSinh.options).find(o => o.value.toLowerCase().includes(info.noiSinh.toLowerCase()) || info.noiSinh.toLowerCase().includes(o.value.toLowerCase().replace('thành phố ', '')));
     if (match) selNoiSinh.value = match.value;
   }
-
   if (info.noiCap) {
     const selNoiCap = document.getElementById('noiCapSelect');
     if (info.noiCap.toLowerCase().includes('bộ công an')) selNoiCap.value = 'Bộ Công An';
@@ -471,63 +458,54 @@ function fillForm(info) {
 }
 
 // ============================================================
-// XỬ LÝ FORM & DROPDOWN
+// 3. XỬ LÝ FORM & KIỂM TRA FILE NGHIÊM NGẶT
 // ============================================================
 function toggleNoiCapKhac(sel) { const k = document.getElementById('noiCapKhac'); k.style.display = sel.value === 'Khác' ? 'block' : 'none'; if(sel.value !== 'Khác') k.value = ''; }
 function toggleCoSoKhac(sel) { const k = document.getElementById('coSoDaoTaoKhac'); k.style.display = sel.value === 'Khác' ? 'block' : 'none'; if(sel.value !== 'Khác') k.value = ''; }
 function getNoiCap() { const s = document.getElementById('noiCapSelect').value; return s === 'Khác' ? document.getElementById('noiCapKhac').value.trim() : s; }
 function getCoSoDaoTao() { const s = document.getElementById('coSoDaoTaoSelect').value; return s === 'Khác' ? document.getElementById('coSoDaoTaoKhac').value.trim() : s; }
 
-// ============================================================
-// XỬ LÝ FILE PDF
-// ============================================================
 function validateFileName(input) {
   const targetName = document.getElementById('nameHoSo');
   const warning = document.getElementById('fileNameWarning');
   
   if (input.files && input.files[0]) {
     const fileName = input.files[0].name;
-    
-    // Tách tên file thành các phần dựa vào dấu chấm
     const parts = fileName.split('.');
-    
-    // Lấy đuôi file ra (pdf) và chuyển thành chữ thường
     const extension = parts.pop().toLowerCase(); 
     
-    // 1. CHẶN NẾU KHÔNG PHẢI PDF
     if (extension !== 'pdf') {
       alert('❌ Chỉ chấp nhận định dạng file PDF.');
-      input.value = ''; // Xóa file vừa chọn
-      targetName.textContent = 'Chưa chọn tệp hồ sơ...';
-      targetName.style.color = 'var(--text-muted)';
+      input.value = ''; targetName.textContent = 'Chưa chọn tệp hồ sơ...'; targetName.style.color = 'var(--text-muted)';
       return;
     }
 
-    // 2. CHẶN NẾU SAI CẤU TRÚC (Tên.NgaySinh.SoGiayTo)
-    // Sau khi lấy mất đuôi .pdf, mảng parts phải còn ít nhất 3 phần
     if (parts.length < 3) {
-      alert('❌ TỆP HỒ SƠ BỊ TỪ CHỐI DO SAI TÊN!\n\nVui lòng đổi tên file theo đúng quy tắc bắt buộc:\nHoVaTen.NgayThangNamSinh.SoGiayTo\n\nVí dụ: NguyenVanA.01011990.001122334455\n(Số giấy tờ có thể là CCCD hoặc Hộ chiếu)');
-      
-      // Xóa file không hợp lệ khỏi hệ thống
-      input.value = ''; 
-      targetName.textContent = 'Chưa chọn tệp hồ sơ...';
-      targetName.style.color = 'var(--text-muted)';
-      
+      alert('❌ TỆP HỒ SƠ BỊ TỪ CHỐI DO SAI TÊN!\n\nVui lòng đổi tên file theo đúng quy tắc bắt buộc:\nHoVaTen.NgayThangNamSinh.SoGiayTo\n\nVí dụ: NguyenVanA.01011990.001122334455');
+      input.value = ''; targetName.textContent = 'Chưa chọn tệp hồ sơ...'; targetName.style.color = 'var(--text-muted)';
       warning.style.color = 'var(--error)';
       warning.innerHTML = '❌ Vui lòng đổi tên file trên máy tính/điện thoại của bạn trước khi tải lên lại.';
       return;
     }
 
-    // 3. NẾU VƯỢT QUA CÁC BƯỚC KIỂM TRA -> CHẤP NHẬN FILE
     targetName.textContent = fileName;
-    targetName.style.color = 'var(--success)'; // Đổi màu xanh lá báo thành công
+    targetName.style.color = 'var(--success)';
     warning.style.color = 'var(--success)';
     warning.innerHTML = '✅ Tên file hợp lệ. Hồ sơ đã sẵn sàng để gửi.';
   }
 }
 
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = error => reject(error);
+  });
+}
+
 // ============================================================
-// ĐIỀU HƯỚNG BƯỚC 3: RÀ SOÁT TỔNG THỂ CÁC TRƯỜNG
+// 4. BƯỚC 3: RÀ SOÁT TỔNG THỂ
 // ============================================================
 function goToReview() {
   const requiredFields = ['hoTen', 'ngaySinh', 'soCCCD', 'ngayCap', 'quocTich', 'diaChi', 'soDienThoai'];
@@ -542,67 +520,47 @@ function goToReview() {
   const fileInput = document.getElementById('fileHoSo');
   if (!fileInput.files[0]) { alert('⚠️ Vui lòng tải lên file hồ sơ PDF theo quy định.'); return; }
 
-  // Lấy toàn bộ dữ liệu thí sinh đã nhập
   const hoTen = document.getElementById('hoTen').value.trim() || '---';
   const ngaySinh = document.getElementById('ngaySinh').value.trim() || '---';
   const gioiTinh = document.getElementById('gioiTinh').value || '---';
   const noiSinh = document.getElementById('noiSinh').value || '---';
   const quocTich = document.getElementById('quocTich').value.trim() || '---';
   const diaChi = document.getElementById('diaChi').value.trim() || '---';
-  
   const cccd = document.getElementById('soCCCD').value.trim() || '---';
   const ngayCap = document.getElementById('ngayCap').value.trim() || '---';
   const noiCap = getNoiCap() || '---';
-  
   const sdt = document.getElementById('soDienThoai').value.trim() || '---';
   const email = document.getElementById('email').value.trim() || '---';
-  
   const coSoDaoTao = getCoSoDaoTao() || '---';
   const stk = document.getElementById('soTaiKhoan').value.trim() || '---';
   const chungChiCu = document.getElementById('soChungChi').value.trim() || '---';
-  
   const currentFileName = fileInput.files[0].name;
 
-  // Xây dựng Giao diện Rà soát trực quan hiển thị 100% dữ liệu
   let reviewHtml = `
-    <div style="margin-bottom: 16px;">
-      <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 600;">I. Thông tin cá nhân</span>
-    </div>
+    <div style="margin-bottom: 16px;"><span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 600;">I. Thông tin cá nhân</span></div>
     <div class="review-item"><span class="review-label">Họ và tên</span><span class="review-value">${hoTen}</span></div>
     <div class="review-item"><span class="review-label">Ngày sinh</span><span class="review-value">${ngaySinh}</span></div>
     <div class="review-item"><span class="review-label">Giới tính</span><span class="review-value">${gioiTinh}</span></div>
     <div class="review-item"><span class="review-label">Nơi sinh</span><span class="review-value">${noiSinh}</span></div>
     <div class="review-item"><span class="review-label">Quốc tịch</span><span class="review-value">${quocTich}</span></div>
     <div class="review-item"><span class="review-label">Địa chỉ thường trú</span><span class="review-value">${diaChi}</span></div>
-    
-    <div style="margin: 24px 0 16px;">
-      <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 600;">II. Giấy tờ & Liên hệ</span>
-    </div>
+    <div style="margin: 24px 0 16px;"><span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 600;">II. Giấy tờ & Liên hệ</span></div>
     <div class="review-item"><span class="review-label">Số CCCD / Hộ chiếu</span><span class="review-value">${cccd}</span></div>
     <div class="review-item"><span class="review-label">Ngày cấp</span><span class="review-value">${ngayCap}</span></div>
     <div class="review-item"><span class="review-label">Nơi cấp</span><span class="review-value">${noiCap}</span></div>
     <div class="review-item"><span class="review-label">Số điện thoại</span><span class="review-value">${sdt}</span></div>
     <div class="review-item"><span class="review-label">Email</span><span class="review-value">${email}</span></div>
-    
-    <div style="margin: 24px 0 16px;">
-      <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 600;">III. Khác & Hồ sơ</span>
-    </div>
+    <div style="margin: 24px 0 16px;"><span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 600;">III. Khác & Hồ sơ</span></div>
     <div class="review-item"><span class="review-label">Cơ sở đào tạo</span><span class="review-value">${coSoDaoTao}</span></div>
     <div class="review-item"><span class="review-label">Số tài khoản</span><span class="review-value">${stk}</span></div>
     <div class="review-item"><span class="review-label">Số chứng chỉ cũ</span><span class="review-value">${chungChiCu}</span></div>
     <div class="review-item" style="border-top: 2px solid var(--dark-border); padding-top: 16px; margin-top: 8px;">
       <span class="review-label">Hồ sơ đính kèm</span><span class="review-value" style="color:var(--gold); word-break: break-all;">${currentFileName}</span>
     </div>
-    
-    <div style="margin-top:20px; padding:12px; border-radius:8px; background:rgba(229,62,62,0.08); font-size:12px; color:var(--error); border: 1px solid rgba(229,62,62,0.2);">
-      💡 Hãy kiểm tra thật kỹ các thông tin trên. Đồng thời chắc chắn rằng bạn đã ghép đủ 6 loại giấy tờ và theo đúng thứ tự quy định trong file PDF.
-    </div>
   `;
   document.getElementById('reviewContent').innerHTML = reviewHtml;
-  
   document.getElementById('cardStep2').style.display = 'none';
   document.getElementById('cardStep3').style.display = 'block';
-  
   document.getElementById('step2').classList.add('done');
   document.getElementById('step3').classList.add('active');
   document.getElementById('line2').classList.add('done');
@@ -617,7 +575,7 @@ function goBackToForm() {
 }
 
 // ============================================================
-// BƯỚC 4: GỬI HỒ SƠ
+// 5. BƯỚC 4: GỬI HỒ SƠ
 // ============================================================
 async function submitForm() {
   const btn = document.getElementById('btnSubmitFinal');
@@ -625,8 +583,11 @@ async function submitForm() {
   btn.textContent = '⏳ Đang tải file và gửi hồ sơ...';
 
   try {
-    const filePdfBase64 = await getBase64(document.getElementById('fileHoSo').files[0]);
-    const fileName = document.getElementById('fileHoSo').files[0].name;
+    const fileInput = document.getElementById('fileHoSo');
+    if (!fileInput.files || !fileInput.files[0]) throw new Error("Chưa có file hồ sơ đính kèm!");
+
+    const filePdfBase64 = await getBase64(fileInput.files[0]);
+    const fileName = fileInput.files[0].name;
 
     const payload = {
       hoTen: document.getElementById('hoTen').value.trim(),
@@ -648,7 +609,8 @@ async function submitForm() {
       fileName: fileName
     };
 
-    // Gửi data về Google Apps Script
+    if (!CONFIG.SCRIPT_URL || CONFIG.SCRIPT_URL === '') throw new Error("Link SCRIPT_URL bị trống hoặc sai định dạng.");
+
     await fetch(CONFIG.SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
@@ -658,7 +620,6 @@ async function submitForm() {
 
     document.getElementById('cardStep3').style.display = 'none';
     document.getElementById('successScreen').style.display = 'block';
-    
     document.getElementById('step3').classList.add('done');
     document.getElementById('step4').classList.add('active');
     document.getElementById('line3').classList.add('done');
@@ -667,7 +628,9 @@ async function submitForm() {
   } catch (e) {
     btn.disabled = false;
     btn.textContent = '✅ Xác Nhận Nộp Hồ Sơ';
-    alert('❌ Có lỗi kết nối. Vui lòng kiểm tra lại mạng hoặc file của bạn.');
+    console.error("Lỗi gửi hồ sơ:", e);
+    // HIỂN THỊ LỖI CHÍNH XÁC ĐỂ BẮT BỆNH
+    alert('❌ LỖI KỸ THUẬT: ' + e.message + '\n\n(Chụp màn hình thông báo này nếu bạn cần hỗ trợ thêm nhé)');
   }
 }
 </script>
