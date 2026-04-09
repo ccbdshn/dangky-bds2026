@@ -286,9 +286,9 @@
             <div class="file-btn" style="padding: 8px 20px;">Chọn file PDF</div>
             <div class="file-name" id="nameHoSo" style="font-weight: 500;">Chưa chọn tệp hồ sơ...</div>
           </div>
-          <div id="fileNameWarning" style="margin-top: 10px; font-size: 11px; color: var(--text-muted); line-height: 1.4;">
-            ⚠️ Quy tắc đặt tên: <strong>HoVaTen.NgayThangNamSinh.SoCCCD</strong><br>
-            <i>Ví dụ: NguyenVanA.01011990.000000000000</i>
+         <div id="fileNameWarning" style="margin-top: 10px; font-size: 11px; color: var(--error); line-height: 1.4;">
+            ⚠️ BẮT BUỘC Đặt tên file: <strong>HoVaTen.NgayThangNamSinh.SoGiayTo</strong><br>
+            <i>Ví dụ: NguyenVanA.01011990.001234567890 (hoặc số Hộ chiếu B1234567)</i>
           </div>
         </div>
       </div>
@@ -488,39 +488,47 @@ function validateFileName(input) {
   
   if (input.files && input.files[0]) {
     const fileName = input.files[0].name;
-    const extension = fileName.split('.').pop().toLowerCase();
     
+    // Tách tên file thành các phần dựa vào dấu chấm
+    const parts = fileName.split('.');
+    
+    // Lấy đuôi file ra (pdf) và chuyển thành chữ thường
+    const extension = parts.pop().toLowerCase(); 
+    
+    // 1. CHẶN NẾU KHÔNG PHẢI PDF
     if (extension !== 'pdf') {
       alert('❌ Chỉ chấp nhận định dạng file PDF.');
-      input.value = ''; targetName.textContent = 'Chưa chọn tệp hồ sơ...';
+      input.value = ''; // Xóa file vừa chọn
+      targetName.textContent = 'Chưa chọn tệp hồ sơ...';
+      targetName.style.color = 'var(--text-muted)';
       return;
     }
 
-    targetName.textContent = fileName;
-    targetName.style.color = 'var(--gold)';
-    
-    const parts = fileName.split('.');
+    // 2. CHẶN NẾU SAI CẤU TRÚC (Tên.NgaySinh.SoGiayTo)
+    // Sau khi lấy mất đuôi .pdf, mảng parts phải còn ít nhất 3 phần
     if (parts.length < 3) {
-      warning.style.color = '#E05C5C';
-      warning.innerHTML = '❌ Tên file chưa chuẩn. Vui lòng đổi tên file theo mẫu: <strong>HoVaTen.NgayThangNamSinh.SoCCCD</strong>';
-    } else {
-      warning.style.color = 'var(--success)';
-      warning.innerHTML = '✅ Tên file đã đúng định dạng PDF.';
+      alert('❌ TỆP HỒ SƠ BỊ TỪ CHỐI DO SAI TÊN!\n\nVui lòng đổi tên file theo đúng quy tắc bắt buộc:\nHoVaTen.NgayThangNamSinh.SoGiayTo\n\nVí dụ: NguyenVanA.01011990.001122334455\n(Số giấy tờ có thể là CCCD hoặc Hộ chiếu)');
+      
+      // Xóa file không hợp lệ khỏi hệ thống
+      input.value = ''; 
+      targetName.textContent = 'Chưa chọn tệp hồ sơ...';
+      targetName.style.color = 'var(--text-muted)';
+      
+      warning.style.color = 'var(--error)';
+      warning.innerHTML = '❌ Vui lòng đổi tên file trên máy tính/điện thoại của bạn trước khi tải lên lại.';
+      return;
     }
+
+    // 3. NẾU VƯỢT QUA CÁC BƯỚC KIỂM TRA -> CHẤP NHẬN FILE
+    targetName.textContent = fileName;
+    targetName.style.color = 'var(--success)'; // Đổi màu xanh lá báo thành công
+    warning.style.color = 'var(--success)';
+    warning.innerHTML = '✅ Tên file hợp lệ. Hồ sơ đã sẵn sàng để gửi.';
   }
 }
 
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result.split(',')[1]);
-    reader.onerror = error => reject(error);
-  });
-}
-
 // ============================================================
-// ĐIỀU HƯỚNG BƯỚC 3: RÀ SOÁT
+// ĐIỀU HƯỚNG BƯỚC 3: RÀ SOÁT TỔNG THỂ CÁC TRƯỜNG
 // ============================================================
 function goToReview() {
   const requiredFields = ['hoTen', 'ngaySinh', 'soCCCD', 'ngayCap', 'quocTich', 'diaChi', 'soDienThoai'];
@@ -535,20 +543,60 @@ function goToReview() {
   const fileInput = document.getElementById('fileHoSo');
   if (!fileInput.files[0]) { alert('⚠️ Vui lòng tải lên file hồ sơ PDF theo quy định.'); return; }
 
-  // Build UI Review
-  const hoTen = document.getElementById('hoTen').value;
-  const cccd = document.getElementById('soCCCD').value;
+  // Lấy toàn bộ dữ liệu thí sinh đã nhập
+  const hoTen = document.getElementById('hoTen').value.trim() || '---';
+  const ngaySinh = document.getElementById('ngaySinh').value.trim() || '---';
+  const gioiTinh = document.getElementById('gioiTinh').value || '---';
+  const noiSinh = document.getElementById('noiSinh').value || '---';
+  const quocTich = document.getElementById('quocTich').value.trim() || '---';
+  const diaChi = document.getElementById('diaChi').value.trim() || '---';
+  
+  const cccd = document.getElementById('soCCCD').value.trim() || '---';
+  const ngayCap = document.getElementById('ngayCap').value.trim() || '---';
+  const noiCap = getNoiCap() || '---';
+  
+  const sdt = document.getElementById('soDienThoai').value.trim() || '---';
+  const email = document.getElementById('email').value.trim() || '---';
+  
+  const coSoDaoTao = getCoSoDaoTao() || '---';
+  const stk = document.getElementById('soTaiKhoan').value.trim() || '---';
+  const chungChiCu = document.getElementById('soChungChi').value.trim() || '---';
+  
   const currentFileName = fileInput.files[0].name;
 
+  // Xây dựng Giao diện Rà soát trực quan hiển thị 100% dữ liệu
   let reviewHtml = `
+    <div style="margin-bottom: 16px;">
+      <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 600;">I. Thông tin cá nhân</span>
+    </div>
     <div class="review-item"><span class="review-label">Họ và tên</span><span class="review-value">${hoTen}</span></div>
-    <div class="review-item"><span class="review-label">Ngày sinh</span><span class="review-value">${document.getElementById('ngaySinh').value}</span></div>
-    <div class="review-item"><span class="review-label">Số CCCD</span><span class="review-value">${cccd}</span></div>
-    <div class="review-item"><span class="review-label">SĐT / Email</span><span class="review-value">${document.getElementById('soDienThoai').value} / ${document.getElementById('email').value || '---'}</span></div>
-    <div class="review-item"><span class="review-label">Cơ sở đào tạo</span><span class="review-value">${getCoSoDaoTao()}</span></div>
-    <div class="review-item"><span class="review-label">Hồ sơ PDF đính kèm</span><span class="review-value" style="color:var(--gold)">${currentFileName}</span></div>
-    <div style="margin-top:15px; padding:10px; border-radius:8px; background:rgba(224,92,92,0.1); font-size:12px; color:#E05C5C;">
-      💡 Hãy chắc chắn rằng bạn đã ghép đủ 6 loại giấy tờ và theo đúng thứ tự quy định trong file PDF.
+    <div class="review-item"><span class="review-label">Ngày sinh</span><span class="review-value">${ngaySinh}</span></div>
+    <div class="review-item"><span class="review-label">Giới tính</span><span class="review-value">${gioiTinh}</span></div>
+    <div class="review-item"><span class="review-label">Nơi sinh</span><span class="review-value">${noiSinh}</span></div>
+    <div class="review-item"><span class="review-label">Quốc tịch</span><span class="review-value">${quocTich}</span></div>
+    <div class="review-item"><span class="review-label">Địa chỉ thường trú</span><span class="review-value">${diaChi}</span></div>
+    
+    <div style="margin: 24px 0 16px;">
+      <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 600;">II. Giấy tờ & Liên hệ</span>
+    </div>
+    <div class="review-item"><span class="review-label">Số CCCD / Hộ chiếu</span><span class="review-value">${cccd}</span></div>
+    <div class="review-item"><span class="review-label">Ngày cấp</span><span class="review-value">${ngayCap}</span></div>
+    <div class="review-item"><span class="review-label">Nơi cấp</span><span class="review-value">${noiCap}</span></div>
+    <div class="review-item"><span class="review-label">Số điện thoại</span><span class="review-value">${sdt}</span></div>
+    <div class="review-item"><span class="review-label">Email</span><span class="review-value">${email}</span></div>
+    
+    <div style="margin: 24px 0 16px;">
+      <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 600;">III. Khác & Hồ sơ</span>
+    </div>
+    <div class="review-item"><span class="review-label">Cơ sở đào tạo</span><span class="review-value">${coSoDaoTao}</span></div>
+    <div class="review-item"><span class="review-label">Số tài khoản</span><span class="review-value">${stk}</span></div>
+    <div class="review-item"><span class="review-label">Số chứng chỉ cũ</span><span class="review-value">${chungChiCu}</span></div>
+    <div class="review-item" style="border-top: 2px solid var(--dark-border); padding-top: 16px; margin-top: 8px;">
+      <span class="review-label">Hồ sơ đính kèm</span><span class="review-value" style="color:var(--gold); word-break: break-all;">${currentFileName}</span>
+    </div>
+    
+    <div style="margin-top:20px; padding:12px; border-radius:8px; background:rgba(229,62,62,0.08); font-size:12px; color:var(--error); border: 1px solid rgba(229,62,62,0.2);">
+      💡 Hãy kiểm tra thật kỹ các thông tin trên. Đồng thời chắc chắn rằng bạn đã ghép đủ 6 loại giấy tờ và theo đúng thứ tự quy định trong file PDF.
     </div>
   `;
   document.getElementById('reviewContent').innerHTML = reviewHtml;
