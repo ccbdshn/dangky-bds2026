@@ -426,14 +426,24 @@ Hãy trích xuất các thông tin sau và trả về ĐÚNG định dạng JSON
     showStatus('success', '✅ Đã điền thông tin thành công! Tự động chuyển sang bước tiếp theo...');
     setTimeout(skipToStep2, 1500);
 
-  } catch (e) {
-    console.error("Lỗi chi tiết:", e);
+} catch (e) {
     let thongBao = e.message;
-    if (e.message === 'E104') thongBao = 'Không đọc được thông tin từ ảnh, vui lòng chụp lại rõ hơn';
-    if (e.message === 'Failed to fetch') thongBao = 'Không thể kết nối đến máy chủ Cloudflare. Vui lòng kiểm tra lại đường dẫn WORKER_URL trong code.';
     
-    showStatus('error', '❌ Lỗi: ' + thongBao);
-    document.getElementById('btnOcr').disabled = false;
+    // Rút gọn thông báo lỗi cho thân thiện hơn
+    if (e.message === 'E104') thongBao = 'Ảnh mờ, không đọc được thông tin';
+    else if (e.message.includes('high demand') || e.message.includes('overloaded')) thongBao = 'Máy chủ AI đang quá tải';
+    else if (e.message === 'Failed to fetch') thongBao = 'Lỗi kết nối mạng';
+    else thongBao = 'Lý do: ' + e.message;
+
+    // Hiển thị thông báo lỗi và hành động tiếp theo
+    showStatus('error', '❌ Tự động quét thất bại (' + thongBao + '). Hệ thống sẽ chuyển sang nhập tay...');
+    
+    // TỰ ĐỘNG CHUYỂN BƯỚC SAU 2.5 GIÂY
+    setTimeout(() => {
+      document.getElementById('btnOcr').disabled = false;
+      showStatus('', ''); // Tắt hộp thông báo đi cho gọn
+      skipToStep2();      // Gọi hàm nhảy sang Bước 2
+    }, 2500);
   }
 }
 
