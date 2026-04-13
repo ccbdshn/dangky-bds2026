@@ -546,7 +546,8 @@ function getBase64(file) {
 }
 
 // ============================================================
-// 4. BƯỚC 3: RÀ SOÁT TỔNG THỂ
+// ============================================================
+// 4. BƯỚC 3: RÀ SOÁT TỔNG THỂ (ĐÃ THÊM CHỐT CHẶN KÉP)
 // ============================================================
 function goToReview() {
   const requiredFields = ['hoTen', 'ngaySinh', 'soCCCD', 'ngayCap', 'quocTich', 'diaChi', 'soDienThoai'];
@@ -558,9 +559,35 @@ function goToReview() {
   if (!getNoiCap()) { alert('⚠️ Vui lòng chọn hoặc nhập Nơi cấp'); return; }
   if (!getCoSoDaoTao()) { alert('⚠️ Vui lòng chọn hoặc nhập Cơ sở đào tạo'); return; }
   
+  // ---------------------------------------------------------
+  // 🔒 CHỐT CHẶN KÉP: KIỂM TRA FILE TRƯỚC KHI CHO ĐI TIẾP
+  // ---------------------------------------------------------
   const fileInput = document.getElementById('fileHoSo');
-  if (!fileInput.files[0]) { alert('⚠️ Vui lòng tải lên file hồ sơ PDF theo quy định.'); return; }
+  
+  // 1. Kiểm tra xem đã có file chưa
+  if (!fileInput.files || !fileInput.files[0]) { 
+    alert('⚠️ KHÔNG THỂ TIẾP TỤC: Vui lòng tải lên file hồ sơ PDF.'); 
+    return; // Ngắt lệnh, không cho sang Bước 3
+  }
 
+  // 2. Soi lại định dạng tên file một lần nữa ngay lúc bấm nút
+  const currentFileName = fileInput.files[0].name;
+  const parts = currentFileName.split('.');
+  const extension = parts.pop().toLowerCase();
+
+  if (extension !== 'pdf' || parts.length < 3) {
+    alert('❌ LỖI NGHIÊM TRỌNG: Tên file sai định dạng!\n\nFile hiện tại: ' + currentFileName + '\n\nBạn BẮT BUỘC phải đổi tên file theo chuẩn: HoVaTen.NgayThangNamSinh.SoGiayTo\n(VD: NguyenVanA.01011990.001122334455)\n\nHệ thống chặn không cho phép nộp hồ sơ này!');
+    
+    // Đá ngược con trỏ chuột về ô chọn file và xóa file sai đi
+    fileInput.value = ''; 
+    document.getElementById('nameHoSo').textContent = 'Chưa chọn tệp hồ sơ...';
+    document.getElementById('nameHoSo').style.color = 'var(--text-muted)';
+    
+    return; // NGẮT LỆNH TOÀN TẬP - KHÔNG BAO GIỜ HIỆN BƯỚC 3
+  }
+  // ---------------------------------------------------------
+
+  // Nếu qua được chốt chặn trên, mới lấy dữ liệu để hiển thị bảng rà soát
   const hoTen = document.getElementById('hoTen').value.trim() || '---';
   const ngaySinh = document.getElementById('ngaySinh').value.trim() || '---';
   const gioiTinh = document.getElementById('gioiTinh').value || '---';
@@ -575,7 +602,6 @@ function goToReview() {
   const coSoDaoTao = getCoSoDaoTao() || '---';
   const stk = document.getElementById('soTaiKhoan').value.trim() || '---';
   const chungChiCu = document.getElementById('soChungChi').value.trim() || '---';
-  const currentFileName = fileInput.files[0].name;
 
   let reviewHtml = `
     <div style="margin-bottom: 16px;"><span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: 600;">I. Thông tin cá nhân</span></div>
