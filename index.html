@@ -490,7 +490,8 @@ function getNoiCap() { const s = document.getElementById('noiCapSelect').value; 
 function getCoSoDaoTao() { const s = document.getElementById('coSoDaoTaoSelect').value; return s === 'Khác' ? document.getElementById('coSoDaoTaoKhac').value.trim() : s; }
 
 // ============================================================
-// XỬ LÝ FILE PDF
+// ============================================================
+// XỬ LÝ FILE PDF VÀ KIỂM TRA TÊN NGHIÊM NGẶT
 // ============================================================
 function validateFileName(input) {
   const targetName = document.getElementById('nameHoSo');
@@ -498,25 +499,40 @@ function validateFileName(input) {
   
   if (input.files && input.files[0]) {
     const fileName = input.files[0].name;
-    const extension = fileName.split('.').pop().toLowerCase();
+    const parts = fileName.split('.');
     
+    // Tách phần đuôi file (pdf) ra khỏi tên
+    const extension = parts.pop().toLowerCase(); 
+    
+    // 1. Chặn nếu không phải PDF
     if (extension !== 'pdf') {
       alert('❌ Chỉ chấp nhận định dạng file PDF.');
-      input.value = ''; targetName.textContent = 'Chưa chọn tệp hồ sơ...';
+      input.value = ''; // Xóa sạch file trong bộ nhớ
+      targetName.textContent = 'Chưa chọn tệp hồ sơ...';
+      targetName.style.color = 'var(--text-muted)';
       return;
     }
 
-    targetName.textContent = fileName;
-    targetName.style.color = 'var(--gold)';
-    
-    const parts = fileName.split('.');
+    // 2. Chặn nếu tên không đủ 3 phần (Tên.NgaySinh.SoGiayTo)
+    // Lưu ý: Sau khi dùng pop() ở trên, mảng parts chỉ còn chứa phần tên trước đuôi .pdf
     if (parts.length < 3) {
-      warning.style.color = '#E05C5C';
-      warning.innerHTML = '❌ Tên file chưa chuẩn. Vui lòng đổi tên file theo mẫu: <strong>HoVaTen.NgayThangNamSinh.SoCCCD</strong>';
-    } else {
-      warning.style.color = 'var(--success)';
-      warning.innerHTML = '✅ Tên file đã đúng định dạng PDF.';
+      alert('❌ LỖI ĐẶT TÊN FILE!\n\nTên file của bạn đang là: ' + fileName + '\n\nHệ thống TỪ CHỐI nhận file này do sai định dạng. Bạn bắt buộc phải đổi tên file theo đúng chuẩn:\nHoVaTen.NgayThangNamSinh.SoGiayTo\n\nVí dụ: NguyenVanA.01011990.0123456789');
+      
+      input.value = ''; // XÓA SẠCH FILE, KHÔNG CHO NỘP
+      targetName.textContent = 'Chưa chọn tệp hồ sơ...';
+      targetName.style.color = 'var(--text-muted)';
+      
+      warning.style.color = 'var(--error)';
+      warning.innerHTML = '❌ Vui lòng đổi tên file trên máy tính/điện thoại rồi chọn lại!';
+      return;
     }
+
+    // 3. Nếu vượt qua các bài kiểm tra -> Cho phép nhận file
+    targetName.textContent = fileName;
+    targetName.style.color = 'var(--success)';
+    
+    warning.style.color = 'var(--success)';
+    warning.innerHTML = '✅ Tên file hợp lệ. Đã sẵn sàng nộp!';
   }
 }
 
